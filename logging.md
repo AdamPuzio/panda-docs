@@ -1,7 +1,7 @@
 ---
 title: logging
 tags: logging
-author: Adam Puzio
+author: AdamPuzio
 source: 
 ---
 # Logging
