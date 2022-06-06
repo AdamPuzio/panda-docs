@@ -1,7 +1,7 @@
 ---
 title: terminology
 tags: 
-author: 
+author: AdamPuzio
 source: 
 ---
 # Terminology
@@ -22,7 +22,7 @@ A Project is a bundled repository of code and configuration that contains everyt
 
 ## Application
 
-Applications are running protocol-based servers mounted on top of Services. Applications can be regular web servers, APIs, Headless apps, or anything you can imagine and build. 
+Applications are running, protocol-based servers mounted on top of Services. Applications can be regular web servers, APIs, Headless apps, or anything you can imagine and build. 
 
 Apps can be built using the library of your choice. The base Panda web app is built using Koa, while the API app uses Moleculer. 
 

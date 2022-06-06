@@ -1,7 +1,7 @@
 ---
 title: project-config
 tags: 
-author: 
+author: AdamPuzio
 source: 
 ---
 # Project Configuration

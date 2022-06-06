@@ -1,7 +1,7 @@
 ---
 title: intro
 tags: 
-author: 
+author: AdamPuzio
 source: 
 ---
 # Introduction to Panda
