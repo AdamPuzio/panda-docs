@@ -1,1 +1,9 @@
-theme: jekyll-theme-slate
+remote_theme: just-the-docs/just-the-docs
+
+# Aux links for the upper right navigation
+aux_links:
+  "Panda on GitHub":
+    - "//github.com/AdamPuzio/panda"
+
+# Makes Aux links open in a new tab. Default is false
+aux_links_new_tab: true
