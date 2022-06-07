@@ -1,7 +1,9 @@
 ---
 title: Factory
-tags: 
+tags: core factory
 author: AdamPuzio
+parent: Core
+nav_order: 2
 source: 
 ---
 # Factory

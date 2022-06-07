@@ -1,7 +1,8 @@
 ---
-title: project-config
-tags: 
+title: Project Configuration
+tags: config
 author: AdamPuzio
+nav_order: 3
 source: 
 ---
 # Project Configuration

@@ -1,7 +1,9 @@
 ---
-title: wasp
-tags: logging
+title: Wasp
+tags: core wasp logging
 author: AdamPuzio
+parent: Core
+nav_order: 5
 source: 
 ---
 # Wasp

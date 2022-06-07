@@ -1,7 +1,8 @@
 ---
-title: Introduction to Panda
+title: Introduction
 tags: 
 author: AdamPuzio
+nav_order: 1
 source: 
 ---
 # Introduction to Panda

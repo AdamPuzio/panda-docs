@@ -1,7 +1,9 @@
 ---
-title: logging
-tags: logging
+title: Logger
+tags: core logging
 author: AdamPuzio
+parent: Core
+nav_order: 3
 source: 
 ---
 # Logging
