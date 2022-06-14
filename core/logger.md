@@ -18,8 +18,12 @@ const logger = Logger.getLogger()
 ## Logging 
 
 ```js
+logger.fatal(msg)
 logger.error(msg)
+logger.warn(msg)
+logger.http(msg)
 logger.info(msg)
+logger.verbose(msg)
 logger.debug(msg)
 logger.silly(msg)
 ```
