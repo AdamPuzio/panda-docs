@@ -3,6 +3,7 @@ title: Terminology
 tags: 
 author: AdamPuzio
 nav_order: 2
+has_children: true
 source: 
 ---
 # Terminology
