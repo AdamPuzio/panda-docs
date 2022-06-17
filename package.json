@@ -1,0 +1,19 @@
+{
+  "name": "panda-docs",
+  "version": "1.0.0",
+  "description": "Panda Framework documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamPuzio/panda-docs.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AdamPuzio/panda-docs/issues"
+  },
+  "homepage": "https://github.com/AdamPuzio/panda-docs#readme"
+}
