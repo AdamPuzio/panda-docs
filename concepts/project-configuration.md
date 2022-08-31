@@ -1,9 +1,9 @@
 ---
 title: Project Configuration
-tags: config
+tags: config project
 author: AdamPuzio
 parent: Concepts
-nav_order: 2
+nav_order: 3
 source: 
 ---
 # Project Configuration
