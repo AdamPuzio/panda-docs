@@ -3,7 +3,7 @@ title: Projects
 tags: project
 author: AdamPuzio
 nav_order: 6
-parent: Terminology
+parent: Entities
 source: 
 ---
 # Projects

@@ -3,7 +3,7 @@ title: Commands
 tags: command
 author: AdamPuzio
 nav_order: 2
-parent: Terminology
+parent: Entities
 source: 
 ---
 # Commands

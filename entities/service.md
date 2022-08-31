@@ -3,7 +3,7 @@ title: Services
 tags: service
 author: AdamPuzio
 nav_order: 9
-parent: Terminology
+parent: Entities
 source: 
 ---
 # Services

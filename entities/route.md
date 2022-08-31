@@ -3,7 +3,7 @@ title: Routes
 tags: route
 author: AdamPuzio
 nav_order: 7
-parent: Terminology
+parent: Entities
 source: 
 ---
 # Routes

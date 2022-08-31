@@ -19,6 +19,8 @@ New to Panda? The best place to start is by building a new Project for yourself 
 npm i -g panda-cli
 ```
 
+Run `panda -v` to check the version or `panda` to see the list of available commands to run.
+
 Next, navigate to a directory where you'd like to create your new Project and run the `project:create` command:
 
 ```bash
@@ -30,7 +32,6 @@ The Panda CLI will ask you a series of questions about what kind of application 
 ## Topics
 
 * [Terminology](terminology)
-* [Project Configuration](project-configuration)
 * Core
   * [Context](core/context)
   * [Factory](core/factory)

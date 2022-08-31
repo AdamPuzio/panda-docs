@@ -1,12 +1,12 @@
 ---
-title: Terminology
+title: Entities
 tags: 
 author: AdamPuzio
-nav_order: 5
-has_children: false
+nav_order: 4
+has_children: true
 source: 
 ---
-# Terminology
+# Entities
 
 * [Application](#application)
 * [Command](#command)
