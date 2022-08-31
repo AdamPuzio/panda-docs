@@ -1,8 +1,8 @@
 ---
 title: Components
-tags: 
+tags: component
 author: AdamPuzio
-nav_order: 2
+nav_order: 3
 parent: Terminology
 source: 
 ---

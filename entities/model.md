@@ -1,8 +1,8 @@
 ---
 title: Models
-tags: 
+tags: model
 author: AdamPuzio
-nav_order: 3
+nav_order: 4
 parent: Terminology
 source: 
 ---

@@ -1,6 +1,6 @@
 ---
-title: Wasp
-tags: core wasp logging
+title: Terminal
+tags: core terminal logging
 author: AdamPuzio
 parent: Core
 nav_order: 5
@@ -13,34 +13,29 @@ source:
 ```js
 'use strict'
 
-const Core = require('panda-core')
-const Wasp = Core.Wasp
-const program = new Wasp.ScaffoldCommand()
+const { Terminal } = require('panda')
 
-program
-.description('Create a new Thing')
-.argument('[name]')
-.option('--name', 'The name of the Thing')
-.action(async function(name, opts, cmd) {
-  this.debug(`command: thing:create`)
+module.exports = new Terminal.Command({
+  options: [],
+  action: async function (opts) {
+    this.debug('command: foo')
 
-  // check to make sure we are NOT in a Project, Panda, PandaCore or PandaDev directory
-  await this.locationTest(['notInProject', 'notInPanda', 'notInPandaCore', 'notInPandaDev'])
-  
-  await this.parseScaffold('thing', { interactiveMode: !name, mapping: { name } })
-  .then(() => { this.success('Thing successfully created') })
-  .catch((err) => {
-    this.exitError(err, 'Thing creation failed')
-  })
+    this.heading('Running Foo Command:')
+
+    // check to make sure we are in a Project directory
+    await this.confirmInProject()
+
+    this.info('we are in a project')
+  }
 })
-.parse(process.argv)
+
 ```
 
 ## Methods
 
 ### Location Methods
 
-There are a few specific methods that can be called to test out the current working directory location. These are convenience methods that simply reference the same named functions in `Core.ctx`, but then handle the error exit the session.
+There are a few specific methods that can be called to test out the current working directory location. These are convenience methods that simply reference the same named functions in `Panda.Context`, but then handle the error exit the session.
 
 Currently, the only option is `onFail`, which tells the system what to do on failure. 
 
@@ -59,14 +54,12 @@ Currently, the only option is `onFail`, which tells the system what to do on fai
 * `confirmNotInPrivateLabel(opts)` - confirmas the cwd IS NOT in a Private Label library
 
 ```js
-const Core = require('panda-core')
-const Wasp = Core.Wasp
 
 // tests to make sure the cwd isn't in a Project, Panda, or PandaDev
-Wasp.locationTest(['notInProject', 'notInPanda', 'notInPandaDev'])
+this.locationTest(['notInProject', 'notInPanda', 'notInPandaDev'])
 
 // confirm the cwd is a Project directory
-Wasp.confirmInProject()
+this.confirmInProject()
 ```
 
 ### Logging Methods

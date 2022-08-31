@@ -1,8 +1,8 @@
 ---
 title: Routes
-tags: 
+tags: route
 author: AdamPuzio
-nav_order: 2
+nav_order: 7
 parent: Terminology
 source: 
 ---

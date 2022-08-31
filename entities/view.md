@@ -1,8 +1,8 @@
 ---
 title: Views
-tags: 
+tags: view
 author: AdamPuzio
-nav_order: 8
+nav_order: 10
 parent: Terminology
 source: 
 ---

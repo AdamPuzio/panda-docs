@@ -1,8 +1,8 @@
 ---
 title: Services
-tags: 
+tags: service
 author: AdamPuzio
-nav_order: 7
+nav_order: 9
 parent: Terminology
 source: 
 ---

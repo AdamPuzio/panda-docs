@@ -8,19 +8,16 @@ source:
 ---
 # Terminology
 
-* [Project](#project)
 * [Application](#application)
-* [Service](#service)
-* [Package](#package)
-* [Route](#route)
-* [Model](#model)
-* [View](#view)
+* [Command](#command)
 * [Component](#component)
-
-
-## Project
-
-A Project is a bundled repository of code and configuration that contains everything needed to be run. 
+* [Model](#model)
+* [Package](#package)
+* [Project](#project)
+* [Route](#route)
+* [Scaffold](#scaffold)
+* [Service](#service)
+* [View](#view)
 
 ## Application
 
@@ -30,13 +27,21 @@ Apps can be built using the library of your choice. The base Panda web app is bu
 
 To learn more about Applications, visit the [Applications page](entities/application)
 
-## Service
+## Command
 
-At its core, Panda uses a microservices-based approach to building and scaling your logic. Services, therefore, are the primary method for creating that logic. 
+To learn more about Commands, visit the [Commands page](entities/command)
 
-Since Services can be run independently on distributed networks, there is power in creating your Apps and Projects in a way that leverages Services heavily. 
+## Component
 
-To learn more about Services, visit the [Services page](entities/service)
+Components are portable templates. They are similar to Views, but also contain forms and configuration information that are used by content management systems to provide a better way to set them up using an interface. 
+
+To learn more about Components, visit the [Components page](entities/component)
+
+## Model
+
+Models are independent, logic-based classes. They can be used any way you'd like: as datastore models (think Mongoose), Singleton or instance classes, utility functions, or any other format you'd like. 
+
+To learn more about Models, visit the [Models page](entities/model)
 
 ## Package
 
@@ -50,11 +55,23 @@ Routes (or controllers) contain the routing information used by the different Ap
 
 To learn more about Routes, visit the [Routes page](entities/route)
 
-## Model
+## Project
 
-Models are independent, logic-based classes. They can be used any way you'd like: as datastore models (think Mongoose), Singleton or instance classes, utility functions, or any other format you'd like. 
+A Project is a bundled repository of code and configuration that contains everything needed to be run. 
 
-To learn more about Models, visit the [Models page](entities/model)
+## Scaffold
+
+Scaffolds are bundled build scripts used to create new things. 
+
+To learn more about Scaffolds, visit the [Scaffolds page](entities/scaffold)
+
+## Service
+
+At its core, Panda uses a microservices-based approach to building and scaling your logic. Services, therefore, are the primary method for creating that logic. 
+
+Since Services can be run independently on distributed networks, there is power in creating your Apps and Projects in a way that leverages Services heavily. 
+
+To learn more about Services, visit the [Services page](entities/service)
 
 ## View
 
@@ -63,9 +80,3 @@ Views are simple renderable templates used to display output from Applications. 
 Panda's default web app uses EJS as its templating engine, but any templating engine can be incorporated and used.
 
 To learn more about Views, visit the [Views page](entities/view)
-
-## Component
-
-Components are portable templates. They are similar to Views, but also contain forms and configuration information that are used by content management systems to provide a better way to set them up using an interface. 
-
-To learn more about Components, visit the [Components page](entities/component)

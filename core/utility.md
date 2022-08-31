@@ -3,12 +3,12 @@ title: Utility
 tags: core utility
 author: AdamPuzio
 parent: Core
-nav_order: 4
+nav_order: 6
 source: 
 ---
 # Utility
 
-The `Core.Utility` class is a set of stateless utility and convenience functions used throughout the system. 
+The `Panda.Utility` class is a set of stateless utility and convenience functions used throughout the system. 
 
 ## Methods
 
@@ -17,7 +17,7 @@ The `Core.Utility` class is a set of stateless utility and convenience functions
 There are several utility functions used to adapt variable values to fit a specific use case, such as slugifying a readable word (e.g. Base Config > base-config). 
 
 ```js
-const Utility = Core.Utility
+const Utility = Panda.Utility
 
 let v = 'bEcOmEs ThIs'
 
