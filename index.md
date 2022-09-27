@@ -33,7 +33,7 @@ The only dependency for Panda is NodeJS version 14 or greater. That's it. Panda 
 New to Panda? The best place to start is by building a new Project for yourself and playing around. First, you'll need to install the Panda CLI globally:
 
 ```bash
-npm i -g panda-cli
+npm i -g get-panda
 ```
 
 Run `panda -v` to check the version or `panda` to see the list of available commands to run.
