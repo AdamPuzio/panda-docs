@@ -9,13 +9,32 @@ source:
 
 Panda is a rapid application development framework and toolkit. The goal is to provide developers with the tools and processes to quickly and easily create applications that are flexible, scalable, fast and fun to develop. 
 
+The model is simple: spend more time building and being creative and less time managing and maintaining your applications and instances. Panda bundles common development tools into a simple and intuitive platform that makes it easy to scaffold, run and deploy your apps. Focus less on app creation, scaffolding, deployments, testing, troubleshooting, monitoring and maintaning your apps, and focus more on building web pages, services, components, commands, models and plugins.
+
+Panda uses the concept of _entities_, which are the building blocks of your applications. Below is a list of the base entities that can be created out-of-the-box:
+| entity      | default    | description |
+| ----------- | ---------- | ----------- |
+| application | koa        | Running applications |
+| command     | panda      | Commands that can be run in a terminal |
+| component   | panda      | Configurable UI components |
+| model       | none       | Classes or models for your logic layers |
+| package     | panda      | Panda plug-ins for adding features and functionality |
+| project     | panda      | A deployable and runnable Project that contains all types of entities |
+| route       | koa-router | Web application routing/controllers |
+| scaffold    | panda      | Scaffolding system to easily create other entities |
+| service     | moleculer  | Services that can be run internally or externally |
+| static      | koa-static | Static directories that will return its contents |
+| view        | ejs        | Basic templates for rendering dynamic content |
+
+All of the base entities are available immediately to implement and even scaffold. Prefer express over koa? Want to use mustache instead of ejs? Don't worry, you can use your favorite technologies instead. We've just packaged up our favorites to start. 
+
 > NOTE: Panda is currently in __Alpha__ development phase. All code, including Project builds, are considered highly volatile and WILL change frequently.
 
 ## Getting Started
 
 ### Dependencies
 
-The only dependency for Panda is NodeJS version 14 or greater. That's it. Panda should work on MacOS, Windows and Linux.
+*_The only dependency for Panda is NodeJS version 14 or greater_*. That's it. Panda should work on MacOS, Windows and Linux.
 
 ## Installation
 
@@ -67,7 +86,7 @@ const pandaService = new Service('sample', {})
 const pandaScaffold = new Scaffold({})
 ```
 
-If you want to go meta, you can even create new entity types
+If you want to go meta, you can even create new entity types:
 
 ```js
 const { Entity } = require('panda')
@@ -86,7 +105,7 @@ module.exports = PandaThing
 
 ## Help
 
-## via create-panda-app command
+### via create-panda-app command
 
 To see a list of potential parameters you can apply, run:
 
@@ -94,7 +113,7 @@ To see a list of potential parameters you can apply, run:
 npx create-panda-app --help
 ```
 
-## via panda command
+### via panda command
 
 To see a list of all the commands available to you via the Panda CLI, run:
 
@@ -107,6 +126,8 @@ If you want information about a particular command, run that command with the `-
 ```bash
 panda project:create --help
 ```
+
+> NOTE: in order to run the `panda` command, you must have the full CLI installed
 
 ## Topics
 
