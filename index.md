@@ -12,6 +12,7 @@ Panda is a rapid application development framework and toolkit. The goal is to p
 The model is simple: spend more time building and being creative and less time managing and maintaining your applications and instances. Panda bundles common development tools into a simple and intuitive platform that makes it easy to scaffold, run and deploy your apps. Focus less on app creation, scaffolding, deployments, testing, troubleshooting, monitoring and maintaning your apps, and focus more on building web pages, services, components, commands, models and plugins.
 
 Panda uses the concept of _entities_, which are the building blocks of your applications. Below is a list of the base entities that can be created out-of-the-box:
+
 | entity      | default    | description |
 | ----------- | ---------- | ----------- |
 | application | koa        | Running applications |
