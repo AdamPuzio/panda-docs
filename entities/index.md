@@ -8,81 +8,55 @@ source:
 ---
 # Entities
 
-* [Application](#application)
-* [Command](#command)
-* [Component](#component)
-* [Model](#model)
-* [Package](#package)
-* [Project](#project)
-* [Route](#route)
-* [Scaffold](#scaffold)
-* [Service](#service)
-* [View](#view)
+Panda uses the concept of _entities_, which are the building blocks of your applications. Below is a list of the base entities that can be created out-of-the-box:
 
-## Application
+| entity                     | default    | description |
+| -------------------------- | ---------- | ----------- |
+| [application](application) | koa        | Running applications |
+| [command](command)         | panda      | Commands that can be run in a terminal |
+| [component](component)     | panda      | Configurable UI components |
+| [model](model)             | none       | Classes or models for your logic layers |
+| [package](package)         | panda      | Panda plug-ins for adding features and functionality |
+| [project](project)         | panda      | A deployable and runnable Project that contains all types of entities |
+| [route](route)             | koa-router | Web application routing/controllers |
+| [scaffold](scaffold)       | panda      | Scaffolding system to easily create other entities |
+| [service](service)         | moleculer  | Services that can be run internally or externally |
+| [static](static)           | koa-static | Static directories that will return its contents |
+| [view](view)               | ejs        | Basic templates for rendering dynamic content |
 
-Applications are running, protocol-based servers mounted on top of Services. Applications can be regular web servers, APIs, Headless apps, or anything you can imagine and build. 
+All of the base entities are available immediately to implement and even scaffold. Prefer express over koa? Want to use mustache instead of ejs? Don't worry, you can use your favorite technologies instead. We've just packaged up our favorites to start. 
 
-Apps can be built using the library of your choice. The base Panda web app is built using Koa, while the API app uses Moleculer. 
+## Entity Usage
 
-To learn more about Applications, visit the [Applications page](application)
+Developing with these building blocks is super easy. For most entities, creating a new one is as simple as including that entity from Panda and instantiating it.
 
-## Command
+```js
+const { Command, Router, Service, Scaffold } = require('panda')
+// create a new Command
+const pandaCommand = new Command({})
+// create a new Router
+const pandaRouter = new Router()
+// create a new Service called sample
+const pandaService = new Service('sample', {})
+// create a new Scaffold
+const pandaScaffold = new Scaffold({})
+```
 
-To learn more about Commands, visit the [Commands page](command)
+## Creating a New Entity Type
 
-## Component
+If you want to go meta, you can even create new entity types:
 
-Components are portable templates. They are similar to Views, but also contain forms and configuration information that are used by content management systems to provide a better way to set them up using an interface. 
+```js
+const { Entity } = require('panda')
 
-To learn more about Components, visit the [Components page](component)
+class PandaThing extends Entity {
+  static type = 'thing'
+  static filePattern = '/**/thing.ext'
 
-## Model
+  static async registerItem (buildObj, entity, pkg) {
+    ...
+  }
+}
 
-Models are independent, logic-based classes. They can be used any way you'd like: as datastore models (think Mongoose), Singleton or instance classes, utility functions, or any other format you'd like. 
-
-To learn more about Models, visit the [Models page](model)
-
-## Package
-
-Packages in Panda are essentially plug-ins. They act as independent bundles of code that can contain their own Apps, Services, Routes, Components, etc. This allows them to be easily installed and configured into your Project and managed as any other NPM library. 
-
-To learn more about Packages, visit the [Packages page](package)
-
-## Route
-
-Routes (or controllers) contain the routing information used by the different Applications in Panda.
-
-To learn more about Routes, visit the [Routes page](route)
-
-## Project
-
-A Project is a bundled repository of code and configuration that contains everything needed to be run. 
-
-## Scaffold
-
-Scaffolds are bundled build scripts used to create new things. 
-
-To learn more about Scaffolds, visit the [Scaffolds page](scaffold)
-
-## Service
-
-At its core, Panda uses a microservices-based approach to building and scaling your logic. Services, therefore, are the primary method for creating that logic. 
-
-Since Services can be run independently on distributed networks, there is power in creating your Apps and Projects in a way that leverages Services heavily. 
-
-To learn more about Services, visit the [Services page](service)
-
-## Static Directory
-
-Static directories are directories whose files are served exactly as they are.
-
-To learn more about Static directories, visit the [Static Directories page](static)
-
-## View
-
-Views are simple renderable templates used to display output from Applications. Generally, they render HTML, but they can be used to output any format desired. 
-
-Panda's default web app uses EJS as its templating engine, but any templating engine can be incorporated and used.
-
-To learn more about Views, visit the [Views page](view)
+module.exports = PandaThing
+```

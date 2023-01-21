@@ -17,6 +17,7 @@ source:
 * [Route](#route)
 * [Scaffold](#scaffold)
 * [Service](#service)
+* [Static Directory](#static-directory)
 * [View](#view)
 
 ## Application
@@ -72,6 +73,12 @@ At its core, Panda uses a microservices-based approach to building and scaling y
 Since Services can be run independently on distributed networks, there is power in creating your Apps and Projects in a way that leverages Services heavily. 
 
 To learn more about Services, visit the [Services page](entities/service)
+
+## Static Directory
+
+Static directories are directories whose files are served exactly as they are.
+
+To learn more about Static directories, visit the [Static Directories page](entities/static)
 
 ## View
 
