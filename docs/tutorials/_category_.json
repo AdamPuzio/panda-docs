@@ -1,0 +1,8 @@
+{
+  "label": "Tutorials",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Tutorials to help you learn the basics of Panda"
+  }
+}

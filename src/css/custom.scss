@@ -1,0 +1,196 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+/* :root {
+  --brand: #61dafb;
+  --dark: #282c34;
+  --deepdark: #20232a;
+  --light: #373940;
+  --text: #1a1a1a;
+  --subtle: #767676;
+  --divider: #ececec;
+  --tintColor: #f7f7f7;
+  --rn-note-background: rgba(255, 229, 100, 0.25);
+  --ifm-font-family-base: "Optimistic Display", system-ui, -apple-system,
+    sans-serif;
+  --ifm-color-primary: #06bcee;
+  --ifm-font-size-base: 17px;
+  --ifm-spacing-horizontal: 16px;
+  --ifm-navbar-item-padding-horizontal: 18px;
+  --ifm-menu-link-padding-horizontal: 0;
+  --ifm-toc-padding-vertical: 6px;
+  --ifm-toc-link-color: var(--ifm-color-emphasis-700);
+  --ifm-code-font-size: 90%;
+  --ifm-code-border-radius: 3px;
+  --ifm-blockquote-color: var(--ifm-font-color-base);
+  --ifm-blockquote-font-size: 16px;
+  --ifm-table-head-color: var(--subtle);
+  --ifm-link-hover-decoration: none;
+  --ifm-navbar-background-color: var(--deepdark);
+  --ifm-transition-fast: 0;
+  --ifm-transition-slow: 0;
+  --ifm-pre-line-height: 1.5;
+  --ifm-tabs-padding-vertical: 6px;
+  --ifm-color-warning: #ffe564;
+  --ifm-alert-border-width: 0;
+  --ifm-alert-border-radius: 0;
+  --ifm-alert-color: var(--ifm-font-color-base);
+  --ifm-pagination-nav-color-hover: var(--ifm-color-emphasis-300);
+  --ifm-table-border-width: 0.005rem;
+  --ifm-navbar-sidebar-width: 100%;
+  --ifm-hr-border-color: var(--docusaurus-collapse-button-bg-hover);
+} */
+:root {
+  --dark: #282c34;
+  --light: #373940;
+  --gray: #ccc;
+  --ifm-color-primary: #84b3fa;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #84b3fa;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+
+%link-style {
+  display: initial;
+  color: var(--ifm-font-color-base);
+  background-color: rgba(187, 239, 253, 0.3);
+  line-height: calc(var(--ifm-font-size-base) + 4px);
+  border-bottom: 1px solid var(--ifm-hr-border-color);
+
+  &:hover {
+    background-color: rgba(187, 239, 253, 0.6);
+  }
+}
+
+%link-style-dark {
+  background-color: rgba(97, 218, 251, 0.12);
+  border-bottom-color: rgba(97, 218, 251, 0.3);
+
+  &:hover {
+    background-color: rgba(97, 218, 251, 0.4);
+    border-bottom-color: var(--brand);
+  }
+}
+
+/* Two columns */
+
+.TwoColumns {
+  display: grid;
+}
+
+.TwoColumns .column {
+  width: 100%;
+}
+
+.TwoColumns .column.first {
+  grid-area: first;
+}
+
+.TwoColumns .column.last {
+  grid-area: last;
+}
+
+@media only screen and (min-width: 961px) {
+  .TwoColumns {
+    max-width: 900px;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "first last";
+  }
+
+  .TwoColumns.reverse {
+    grid-template-areas: "last first";
+  }
+
+  .TwoColumns .column {
+    max-width: 450px;
+  }
+
+  .TwoColumns .column.left {
+    padding-right: 50px;
+  }
+
+  .TwoColumns .column.right {
+    padding-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .TwoColumns,
+  .TwoColumns.reverse {
+    grid-template-columns: 1fr;
+    grid-template-areas: "first" "last";
+  }
+
+  .TwoColumns.TwoFigures {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "first" "last";
+  }
+
+  .TwoColumns .column {
+    padding: 0 4rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .TwoColumns .column {
+    padding: 0 1.25rem;
+  }
+
+  .TwoColumns.TwoFigures {
+    grid-template-columns: 1fr;
+    grid-template-areas: "first" "last";
+  }
+}
+
+/* Section */
+
+.Section {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
+
+.Section + .Section {
+  border-top: 1px solid var(--ifm-table-border-color);
+}
+
+.Section.tint {
+  background-color: var(--ifm-menu-color-background-active);
+}
+
+.Section.dark {
+  color: #fff;
+  background-color: var(--dark);
+}
+
+.Section p a {
+  @extend %link-style;
+}
+
+html[data-theme="dark"] .Section p a {
+  @extend %link-style-dark;
+}

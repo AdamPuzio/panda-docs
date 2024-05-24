@@ -1,0 +1,74 @@
+---
+title: Installation & Setup
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Installation & Setup
+
+## Installation
+
+### Install Using `@panda/command`
+
+If you _just_ want to use `Command`, you can install it directly from `@panda/command`:
+
+```bash npm2yarn
+npm install @panda/command
+```
+
+### Install Using `panda`
+
+The `panda` library contains `Command`, along with a lot of other entities and functionality.
+
+```bash npm2yarn
+npm install panda
+```
+
+## Setup
+
+### Include
+
+```js
+// ESM
+import { Command } from '@panda/command'
+// CommonJS
+const { Command } = require('@panda/command')
+```
+
+### Create
+
+Commands can be creating either by extending the `Command` class or creating a new instance of it.
+
+#### Instantiate Command
+
+```js
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  action: async (data, details) => {}
+})
+```
+
+#### Extend Command
+
+```js
+import { Command } from '@panda/command'
+
+export const FooCreateCommand extends Command {
+  name = 'foo:create'
+
+  async action (data, details) {}
+}
+```
+
+### Run
+
+```bash
+./my-script.js
+```
+
+1. Call the script directly (example: `./my-script.js`)
+2. Call the script via `node` (example: `node my-script.js`)
+3. Add the script to your `package.json` into `scripts` and run `npm run <script>`
+4. Add the script to your `package.json` into `bin` and run `npm link` (or install globally) to run as an independent command

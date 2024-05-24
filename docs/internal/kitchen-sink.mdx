@@ -1,0 +1,111 @@
+---
+sidebar_position: 2
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import TOCInline from '@theme/TOCInline'
+
+# Kitchen Sink
+
+This page provides examples of everything that can be used
+
+## Code Block Tabs
+
+<Tabs>
+<TabItem value='cjs' label='CommonJS'>
+
+```js
+const { Command } = require('panda')
+```
+
+</TabItem>
+<TabItem value='esm' label='ESM'>
+
+```js
+import { Command } from 'panda'
+```
+
+</TabItem>
+<TabItem value='ts' label='Typescript'>
+
+```js
+import { Command } from 'panda'
+```
+
+</TabItem>
+</Tabs>
+
+## Code Block Highlighting
+
+```js title='Test Code Block' showLineNumbers
+// highlight-next-line
+import { Command } from 'panda'
+
+const x = 0
+// highlight-start
+const y = 1
+const z = 2
+// highlight-end
+```
+
+## npm2yarn
+
+```bash npm2yarn
+npm install @docusaurus/remark-plugin-npm2yarn
+```
+
+## Admonitions
+
+[Documentation](https://docusaurus.io/docs/markdown-features/admonitions)
+
+:::note
+
+Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::tip
+
+Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::info
+
+Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::warning
+
+Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::danger
+
+Some **content** with _Markdown_ `syntax`. Check [this `api`](#).
+
+:::
+
+:::note[Your Title **with** some _Markdown_ `syntax`!]
+
+Some **content** with some _Markdown_ `syntax`.
+
+:::
+
+## Table of Contents
+
+<TOCInline toc={toc} />
+
+<TOCInline
+  toc={toc.filter((node) => node.level === 2 || node.level === 4)}
+  minHeadingLevel={2}
+  maxHeadingLevel={4}
+/>
+
+## Images
+
+![Example banner](../assets/panda.png)

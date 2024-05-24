@@ -1,0 +1,118 @@
+# Actions
+
+## Universal Action Properties
+
+| Key               | Type         | Req | Description |
+| ----------------- | ------------ | --- | ----------- |
+| type              | string       | Y   | The action type to use |
+| sourceBase        | string       | N   | Action override for `scaffoldDir` |
+| targetBase        | string       | N   | Action override for `cwd` |
+| source            | string       | N   | Relative source path |
+| target            | string       | N   | Relative target path |
+| startMessage      | string       | N   | Message to display on action start |
+| successMessage    | string       | N   | Message to display on action success |
+| errorMessage      | string       | N   | Message to display on action failure |
+
+Notes:
+
+- `source` and `sourceBase` are used in situations where you are moving, copying, cloning or templating from an origin
+- `target` and `targetBase` are used to specify the location the action will be performed (`cwd` by default)
+- `source` and `target` are relative and are appended by their base
+- `startMessage`, `successMessage` and `errorMessage` are custom outputs to provide better messaging to the end user
+
+Roadmap:
+
+- allow messages to be functions or strings - this will allow for further customization of output
+- add a `quiet` flag to allow an action to be performed without output
+
+## Action List
+
+- [`command`](#command)
+- [`npm:install`](#npminstall)
+- [`npm:uninstall`](#npmuninstall)
+- [`npm:update`](#npmupdate)
+
+### `command`
+
+Runs a command in the terminal
+
+| Property      | Type         | Req | Description |
+| ------------- | ------------ | --- | ----------- |
+| command       | string       | N   | Command to run |
+| flags         | array/string | N   | List of flags to append |
+
+Examples:
+
+```js
+new Scaffold({
+  actions: [{
+    type: 'command',
+    command: '',
+    flags: []
+  }]
+})
+```
+
+### `npm:install`
+
+Runs `npm install`
+
+Installs specific package(s) if provided, otherwise will install all dependencies listed in `package.json`.
+
+| Property      | Type         | Req | Description |
+| ------------- | ------------ | --- | ----------- |
+| packages      | array        | N   | List of packages to install |
+| flags         | array/string | N   | List of flags to append |
+
+See the [`npm install`](https://docs.npmjs.com/cli/v10/commands/npm-install) documentation for additional information on the available flags or package formats.
+
+Examples:
+
+```js
+new Scaffold({
+  actions: [
+    // run `npm install`
+    {
+      type: 'npm:install'
+    },
+    // install a specific package
+    {
+      type: 'npm:install',
+      packages: ['@panda/command']
+    },
+    // install multiple packages as devDependencies
+    {
+      type: 'npm:install',
+      flags: ['-D'],
+      packages: ['@types/node', 'typescript']
+    },
+    // specify the cwd to run in
+    {
+      type: 'npm:install',
+      target: '{{kebabCase name}}'
+    }
+  ]
+})
+```
+
+### `npm:uninstall`
+
+Runs `npm uninstall`
+
+Uninstalls specific package(s)
+
+| Property      | Type         | Req | Description |
+| ------------- | ------------ | --- | ----------- |
+| packages      | array        | Y   | List of packages to uninstall |
+| flags         | array/string | N   | List of flags to append |
+
+### `npm:update`
+
+Runs `npm update`
+
+Updates specific package(s) if provided, otherwise will update all dependencies listed in `package.json`.
+
+| Property      | Type         | Req | Description |
+| ------------- | ------------ | --- | ----------- |
+| packages      | array        | N   | List of packages to update |
+| flags         | array/string | N   | List of flags to append |

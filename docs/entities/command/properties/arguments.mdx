@@ -1,0 +1,112 @@
+---
+title: arguments
+description: unnamed parameters passed to a command
+sidebar_position: 5
+tags: [Command, Command Properties]
+---
+
+# `arguments`
+
+Arguments are unnamed parameters that are passed to a command. 
+
+> Note: Currently, `arguments` and `subcommands` are not compatible. If you plan to use `subcommands`, create your arguments as `options` instead.
+
+## Usage
+
+### Format
+
+Arguments can be provided in one of three ways:
+
+- single - a single argument
+- multiple - multiple arguments passed as an array to a single named argument
+- positional - arguments passed in a specific order, each with their own properties
+
+#### Single Argument
+
+The simplest form of an argument is a single named argument. There is one argument accepted and it is applied to the command data object by the `name` provided.
+
+```js
+{
+  arguments: {
+    name: 'name'
+  }
+}
+```
+
+#### Multiple Arguments
+
+Multiple arguments can be passed to a single named argument by marking it as `multiple`. This will create an array of values for the named argument.
+
+```js
+{
+  arguments: {
+    name: 'name',
+    multiple: true
+  }
+}
+```
+
+#### Positional Arguments
+
+Positional arguments are passed in a specific order, with each applied to the data object by its `name` property. Each argument can have its own properties, such as `required` or `default`.
+
+```js
+{
+  arguments: [
+    {
+      name: 'name',
+      required: true
+    },
+    {
+      name: 'pathFrom'
+    },
+    {
+      name: 'pathTo'
+    }
+  ]
+}
+```
+
+##### Notes:
+
+- Required Arguments
+  - Beginning argument(s) can be marked as `required`, but no required argument can be provided after one that is optional.
+- Variadic/Multiple Arguments
+  - Within positional arguments, the last item (and only the last item) can be variadic, meaning it acts as a catch-all for all remaining arguments. This is accomplished by marking it as `multiple`.
+
+## Properties
+
+| Property  | Required | Type(s)    | Default | Description |
+| --------- | :-: | ---------- | ------- | ----------- |
+| [`name`](#name)    | Y   | string       | | Command name |
+| `type`    | N   | string     | `string` | |
+| `description` | N  | string   | | |
+| `required` |
+| `multiple` |
+| `default` | 
+| `tags` | N | string/array |
+| `validate` | N | function | | |
+
+```js
+export interface CommandArgumentProps {
+  name: string
+  type?: any
+  description?: string
+  required?: boolean
+  multiple?: boolean
+  default?: any
+  tags?: string | string[]
+  validate?: (v) => Promise<boolean>
+}
+```
+
+### `name`
+
+### `type`
+### `description`
+### `required`
+### `multiple`
+### `default`
+### `tags`
+### `validate`
+
