@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkpanda_website=self.webpackChunkpanda_website||[]).push([[2798],{4901:a=>{a.exports=JSON.parse('{"label":"official","permalink":"/panda-docs/blog/tags/official","allTagsPath":"/panda-docs/blog/tags","count":1,"unlisted":false}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkpanda_website=self.webpackChunkpanda_website||[]).push([[5151],{350:a=>{a.exports=JSON.parse('[{"label":"Command","permalink":"/panda-docs/docs/tags/command","count":10},{"label":"Command Properties","permalink":"/panda-docs/docs/tags/command-properties","count":9},{"label":"Guide","permalink":"/panda-docs/docs/tags/guide","count":1}]')}}]);

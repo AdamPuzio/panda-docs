@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://adampuzio.github.io/panda-docs/blog</id>
+    <title>Panda Blog</title>
+    <updated>2024-05-02T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://adampuzio.github.io/panda-docs/blog"/>
+    <subtitle>Panda Blog</subtitle>
+    <icon>https://adampuzio.github.io/panda-docs/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>https://adampuzio.github.io/panda-docs/blog/welcome</id>
+        <link href="https://adampuzio.github.io/panda-docs/blog/welcome"/>
+        <updated>2024-05-02T00:00:00.000Z</updated>
+        <author>
+            <name>Adam Puzio</name>
+            <uri>https://github.com/AdamPuzio</uri>
+        </author>
+        <category label="official" term="official"/>
+    </entry>
+</feed>
