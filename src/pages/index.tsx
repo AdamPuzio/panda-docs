@@ -159,8 +159,13 @@ function CommandsSection() {
             <div className={styles.buttons}>
               <Link
                 className="button button--secondary button--lg"
+                to="/docs/guides/cli">
+                CLI Guide
+              </Link>
+              <Link
+                className="button button--secondary button--lg"
                 to="/docs/guides/command">
-                Guide
+                Command Guide
               </Link>
               <Link
                 className="button button--secondary button--lg"

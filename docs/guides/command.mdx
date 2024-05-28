@@ -1,0 +1,141 @@
+---
+title: Creating Commands
+sidebar_position: 10
+tags: [Guide, Command]
+---
+
+# Creating Commands
+
+> The goal of this guide is to show you how to use the `Command` library's basic functionality. A more comprehensive guide on creating a full CLI using `@panda/command` can be found in the [Creating a CLI Guide](./cli).
+
+We're going to create a simple command that uses arguments, options, flags and prompts to simulate creating a new file.
+
+## Setup
+
+First, let's create a new NPM project and install the `@panda/command` library:
+
+```bash npm2yarn
+mkdir panda-example-command
+cd panda-example-command
+npm init -y
+npm install @panda/command
+```
+
+## Create a Command
+
+Next, let's create a new file called `create-file.js` and add the following code:
+
+```js title='create-file.js'
+#!/usr/bin/env node
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'file:create',
+  arguments: {
+    name: 'name'
+  },
+  options: [
+    {
+      name: 'log-level',
+      description: 'Set the log level',
+      tags: ['log']
+    },
+    {
+      name: 'encoding',
+      description: 'Set the file encoding',
+      default: 'utf-8'
+    }
+  ],
+  flags: [
+    {
+      name: 'verbose',
+      alias: 'v',
+      description: 'Run in verbose mode',
+      tags: ['log']
+    }
+  ],
+  prompts: [
+    {
+      name: 'name',
+      label: 'Enter the name of the file',
+      type: 'input'
+    }
+  ]
+  action: async (data, details) => {
+    console.log(`Creating file: ${data.name}`)
+    console.log(`Log level: ${data['log-level']}`)
+    console.log(`Verbose mode: ${data.verbose}`)
+    console.log(`File encoding: ${data.encoding}`)
+  }
+}).run()
+```
+
+Okay, so let's take a look at what this code does:
+
+- We create a new `Command` instance with the name `file:create`.
+- We define an argument called `name` that represents the name of the file.
+- We define an option called `log-level` that sets the log level.
+- We define an option called `encoding` that sets the file encoding with a default value of `utf-8`.
+- We define a flag called `verbose` that runs the command in verbose mode (with an alias of `-v`).
+- We define a prompt that asks the user to enter the name of the file (if the `name` argument is not provided).
+- We define an `action` function that logs the values of the arguments, options, flags and prompts.
+- Finally, we call the `run` method to execute the command.
+
+
+
+## Run the Command
+
+Now, let's run the command with some arguments, options and flags:
+
+```bash
+$ node create-file.js --name=my-file --log-level=debug --verbose
+Creating file: my-file
+Log level: debug
+Verbose mode: true
+File encoding: utf-8
+```
+
+If you don't provide the `name` argument, the command will prompt you to enter the name of the file:
+
+```bash
+$ node create-file.js --log-level=debug --verbose
+? Enter the name of the file:
+```
+
+You can also run the command with the `-v` flag to enable verbose mode:
+
+```bash
+$ node create-file.js --name=my-file -v
+Creating file: my-file
+Log level: info
+Verbose mode: true
+File encoding: utf-8
+```
+
+## Help
+
+`@panda/command` comes with a built-in help system that you can access by running the command with the `--help` flag:
+
+```bash
+$ node create-file.js --help
+
+Usage: file:create [name] [OPTIONS]
+
+Arguments:
+  name                                  The name of the file
+
+Options:
+  --log-level <level>                   Set the log level
+  --encoding <encoding>                 Set the file encoding
+  -v, --verbose                         Run in verbose mode
+  --help                                Show help
+```
+
+The help system automatically generates a help message based on the command's arguments, options and flags.
+
+## Conclusion
+
+In this guide, we've learned how to create a simple command using the `@panda/command` library. We've covered arguments, options, flags and prompts, and how to run the command with different inputs. We've also seen how to access the built-in help system. In the next guide, we'll learn how to create a full CLI with a primary command and multiple subcommands.
+
+To learn more about the `Command` class and its properties, check out the [Command Docs](../entities/command/overview).
+

@@ -1,0 +1,32 @@
+---
+title: version
+description: semver version of the command or utility
+sidebar_position: 4
+tags: [Command, Command Properties]
+---
+
+# `version`
+
+Semantic Version (semver) of either the Command or, most often, the CLI or utility it resides in.
+
+For more information on semantic versioning, see their docs at [semver.org](https://semver.org/).
+
+## `--version` Flag
+
+If `version` is set and the `autoVersion` property isn't set to `false`, running your command with the `--version` (or its alias, `-v`) will output the version:
+
+```js
+new Command({
+  name: 'my-command',
+  version: '0.6.2'
+})
+```
+
+```bash
+$ my-command --version
+0.6.2
+```
+
+## Common Usage
+
+When building a CLI or a command that contains subcommands, the version is set in the primary command. This will give users an indication of the version of the entire command structure. A common practice is to import/require the project's `package.json` and apply the `version` from there, so it doesn't have to be manually updated in the code.

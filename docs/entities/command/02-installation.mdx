@@ -72,3 +72,9 @@ export const FooCreateCommand extends Command {
 2. Call the script via `node` (example: `node my-script.js`)
 3. Add the script to your `package.json` into `scripts` and run `npm run <script>`
 4. Add the script to your `package.json` into `bin` and run `npm link` (or install globally) to run as an independent command
+
+When running a script directly (without using NPM or Node), be sure to include the following in your script:
+
+```
+#!/usr/bin/env node
+```

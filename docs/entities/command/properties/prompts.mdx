@@ -1,0 +1,309 @@
+---
+title: prompts
+description: prompt-based questions to ask the user
+sidebar_position: 8
+tags: [Command, Command Properties]
+---
+
+# `prompts`
+
+The `prompts` property is an array of objects that define the questions to ask the user when a command is run.
+
+## Usage
+
+Prompts are passed as an array of objects, with each object containing the properties of the prompt.
+
+```js
+{
+  prompts: [
+    {
+      type: 'input',
+      name: 'name',
+      label: 'What is your name?'
+    }
+  ]
+}
+```
+
+## Properties
+
+| Property                      | Required | Type(s)         | Default  | Description |
+| ----------------------------- | :------: | --------------- | -------- | ----------- |
+| [`name`](#name)               | Y        | string          |          | Prompt name |
+| [`type`](#type)               | N        | string          | `input`  | Prompt type |
+| [`label`](#label)             | Y        | string          |          | Prompt message |
+| [`options`](#options)         | N        | any[]/function  |          | Prompt choices |
+| [`default`](#default)         | N        | any             |          | Default value |
+| [`tags`](#tags)               | N        | string/array    |          | Tag(s) to apply in `details` |
+| [`validate`](#validate)       | N        | function        |          | Function to validate value |
+| [`transform`](#transform)     | N        | function        |          | Function to transform value |
+| [`when`](#when)               | N        | function        |          | Function to determine if prompt should be asked |
+| [`force`](#force)             | N        | boolean         | `false`  | Ask prompt even if value is already present |
+| [`_overrides`](#_overrides)   | N        | object          |          | Overrides for the prompt |
+
+```
+name: string
+type?: string
+label: string // message
+options?: any[] | ((answers) => any[]) // choices
+default?: any
+tags?: string | string[]
+validate?: (v) => Promise<boolean>
+transform?: (v) => any // filter
+when?: (answers) => boolean // when
+force?: boolean // askAnswered
+_overrides?: { [key: string]: any }
+```
+
+### `name`
+
+The name of the prompt. This is the key that the value will be stored under in the command data object.
+
+### `type`
+
+The type of the prompt. This can be a string or a function. If a function is provided, it will be used to parse the value. Default is `input`.
+
+Common values for `type` include:
+
+* `input`
+* `number`
+* `confirm`
+* `list`
+* `rawlist`
+* `expand`
+* `checkbox`
+* `password`
+
+More information can be found in the [Inquirer.js documentation](https://www.npmjs.com/package/inquirer#objects).
+
+### `label`
+
+The message to display to the user when asking the prompt.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?'
+    }
+  ]
+}
+```
+
+### `options`
+
+The choices available to the user. This can be an array of strings or objects, or a function that returns an array of strings or objects.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      type: 'list',
+      label: 'What is your name?',
+      options: ['Alice', 'Bob', 'Charlie']
+    }
+  ]
+}
+```
+
+### `default`
+
+The default value for the prompt.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      default: 'Alice'
+    }
+  ]
+}
+```
+
+### `tags`
+
+A string or array of strings to apply to the prompt in the `details` object.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      tags: ['name']
+    }
+  ]
+}
+```
+
+### `validate`
+
+A function that validates the value of the prompt. Should return a boolean.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      validate: (v) => v.length > 0
+    }
+  ]
+}
+```
+
+### `transform`
+
+A function that transforms the value of the prompt.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      transform: (v) => v.toUpperCase()
+    }
+  ]
+}
+```
+
+### `when`
+
+A function that determines if the prompt should be asked. Should return a boolean.
+
+```js
+{
+  prompts: [
+    {
+      name: 'age',
+      label: 'How old are you?'
+    },
+    {
+      name: 'name',
+      label: 'What is your name?',
+      when: (answers) => answers.age > 18
+    }
+  ]
+}
+```
+
+### `force`
+
+A boolean that determines if the prompt should be asked even if the value is already present.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      force: true
+    }
+  ]
+}
+```
+
+### `_overrides`
+
+An object that contains overrides for the prompt directly to the underlying prompt library.
+
+```js
+{
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      _overrides: {
+        when: (answers) => answers.age > 18
+      }
+    }
+  ]
+}
+```
+
+## Examples
+
+### Basic Usage
+
+```js
+new Command({
+  name: 'copy',
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?'
+    }
+  ],
+  action: async (data, details) => console.log(data)
+})
+```
+
+```bash
+$ copy
+? What is your name? Alice
+{
+  name: 'Alice'
+}
+```
+
+### Multiple Prompts
+
+```js
+new Command({
+  name: 'copy',
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?'
+    },
+    {
+      name: 'age',
+      label: 'How old are you?'
+    }
+  ],
+  action: async (data, details) => console.log(data)
+})
+```
+
+```bash
+$ copy
+? What is your name? Alice
+? How old are you? 30
+{
+  name: 'Alice',
+  age: 30
+}
+```
+
+### Conditional Prompts
+
+```js
+new Command({
+  name: 'hello',
+  options: [
+    {
+      name: 'name'
+    }
+  ]
+  prompts: [
+    {
+      name: 'name',
+      label: 'What is your name?',
+      when: (answers) => answers.age > 18
+    }
+  ],
+  action: async (data, details) => console.log(data)
+})
+```
+
+```bash
+$ hello --name Alice
+{
+  name: 'Alice'
+}
+```

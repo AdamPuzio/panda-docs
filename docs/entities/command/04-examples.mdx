@@ -1,0 +1,163 @@
+# Examples
+
+## Simple Command
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  action: async (data, details) => {
+    console.log('Creating foo...')
+  }
+})
+```
+
+```bash
+$ node my-cli.js
+Creating foo...
+```
+
+## Command with Arguments
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  arguments: {
+    name: 'name'
+  },
+  action: async (data, details) => {
+    console.log(`Creating foo: ${data.name}`)
+  }
+})
+```
+
+```bash
+$ node my-cli.js bar
+Creating foo: bar
+```
+
+```bash
+$ node my-cli.js --name=bar
+Creating foo: bar
+```
+
+## Command with Options
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  options: [
+    {
+      name: 'log-level',
+      description: 'Set the log level'
+    }
+  ],
+  action: async (data, details) => {
+    console.log(`Creating foo with log level: ${data['log-level']}`)
+  }
+})
+```
+
+```bash
+$ node my-cli.js --log-level=debug
+Creating foo with log level: debug
+```
+
+## Command with Flags
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  flags: [
+    {
+      name: 'debug',
+      description: 'Run debug mode'
+    }
+  ],
+  action: async (data, details) => {
+    console.log(`Creating foo in debug mode: ${data.debug}`)
+  }
+})
+```
+
+```bash
+$ node my-cli.js --debug
+Creating foo in debug mode: true
+```
+
+## Command with Subcommands
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo',
+  commands: [
+    {
+      name: 'create',
+      action: async (data, details) => {
+        console.log('Creating foo...')
+      }
+    }
+  ]
+})
+```
+
+```bash
+$ node my-cli.js create
+Creating foo...
+```
+
+## Command with Prompts
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  prompts: [
+    {
+      name: 'name',
+      message: 'What is the name of the foo?'
+    }
+  ],
+  action: async (data, details) => {
+    console.log(`Creating foo: ${data.name}`)
+  }
+})
+```
+
+```bash
+$ node my-cli.js
+? What is the name of the foo? bar
+Creating foo: bar
+```
+
+## Command with Auto Help
+
+```js title='my-cli.js'
+import { Command } from '@panda/command'
+
+const cmd = new Command({
+  name: 'foo:create',
+  autoHelp: true,
+  action: async (data, details) => {
+    console.log('Creating foo...')
+  }
+})
+```
+
+```bash
+$ node my-cli.js --help
+Usage: foo:create [OPTIONS]
+
+Options:
+  -h, --help    Show help
+```

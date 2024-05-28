@@ -1,0 +1,516 @@
+---
+title: Creating a CLI
+sidebar_position: 10
+tags: [Guide, Command, CLI]
+---
+
+# Creating a CLI
+
+> The goal of this guide is to show you how to use the `Command` library's basic functionality. 
+
+The final code for this guide can be found in the [Panda Examples Website](https://github.com/AdamPuzio/panda-examples/tree/main/command/cli)
+
+We're going to create a very simple CLI with a basic implementation of `@panda/command`. We'll build the skeleton of a program that can monitor and deploy an application (note: it won't actually do any of these things, we'll just simulate what they would look like).
+
+The final product will:
+
+* be globally installable
+* be callable:
+  * directly via `node`
+  * as a script via `npm`
+  * as a global command in your OS
+* contain a primary command with subcommands
+* have a global `--help` flag, as well as `--help` flags for each subcommand
+* utilize each type of parameter: `arguments`, `options` and `flags`
+* utilize `prompts`, including tying them to parameters
+
+## Setup
+
+First, we're going to create a new directory and initialize it with NPM's default settings:
+
+```bash
+mkdir panda-example-cli
+cd panda-example-cli
+npm init -y
+```
+
+Next, let's install the `Command` library:
+
+```bash
+npm i @panda/command
+```
+
+So now that we've got a working Node project that includes `@panda/command`, it's time to add it to `package.json` in a way that will make it easier to use when it's a full, global CLI.
+
+We're going to call our script `panda-example-cli` and it's going to have a base .js file named `cli.js`. We'll create the file later, but for now let's reference both of these in `package.json`:
+
+```json title='package.json'
+{
+  "name": "panda-example-cli",
+  "version": "1.0.0",
+  "main": "cli.js",
+  "type": "module",
+// highlight-start
+  "bin": {
+    "panda-example-cli": "./cli.js"
+  },
+// highlight-end
+  "scripts": {
+// highlight-next-line
+    "example-cli": "node cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@panda/command": "@panda/command"
+  }
+}
+```
+
+By adding it to the `bin` section of our `package.json`, we are creating a system command called `panda-example-cli` that can be called when the script is installed globally, or can be referenced in a package that installs it as a dependency.
+
+By adding it as a `script`, we are enabling the ability to call the CLI using NPM. Since our script is called `example-cli`, all you need to do to run it call `npm run example-cli`.
+
+## Creating a Primary Command
+
+It's time to start actually coding. 
+
+Create a new file at the top of your project directory named `cli.js` and put the following in it:
+
+```js title='cli.js'
+#!/usr/bin/env node
+
+import { Command } from '@panda/command'
+
+new Command({
+  name: 'panda-example-cli',
+
+  action: async (data, details) => {
+    console.log('Hello, Panda!')
+  }
+}).run()
+```
+
+This code imports the `Command` class, instantiates a new command, and then runs it. 
+
+Notice we put `#!/usr/bin/env node` at the beginning of the file. This is to allow us to run this file directly, in addition to the other ways we plan to run it. You will also possibly need to change the permission of the file to be executable to run it that way. Let's test this out by running the following in your terminal:
+
+```bash
+# run script directly
+$ ./cli.js       
+Hello, Panda!
+
+# run via Node
+$ node cli.js 
+Hello, Panda!
+
+# run via NPM
+$ npm run cli
+
+> cli@1.0.0 cli
+> node cli.js
+
+Hello, Panda!
+```
+
+We've now got a working command! It doesn't do anything, so let's change that...
+
+## Setting Up Command Structure
+
+We're going to change things around a little bit and treat `cli.js` as the entry point of our CLI and move all of our actual code into a `bin` directory. 
+
+First, we'll update `cli.js` to import our primary command and run it:
+
+```js title='cli.js'
+#!/usr/bin/env node
+
+import { MainCommand } from './bin/main.js'
+
+MainCommand.run()
+```
+
+Next, create a directory named `bin` where we'll put our commands and create `bin/main.js`, the primary command that we referenced earlier:
+
+```js title='bin/main.js'
+import { Command } from '@panda/command'
+
+export const MainCommand = new Command({
+  name: 'panda-example-cli',
+  description: 'Panda example CLI',
+  version: '1.0.0',
+
+  action: async (data, details) => {
+    console.log('Hello, Panda!')
+  }
+})
+```
+
+This will allow us to now create our different subcommands in a single location. This is helpful if you are compiling with Typescript or you want your CLI to reside within a project, but want it separated out from the rest of your code.
+
+Notice we've also added a `description` and `version`. This will help with our `--help` and `--version` flags that auto-generate useful information (more on that later).
+
+## Creating Subcommands
+
+Okay, now it's time to get into the functionality of our CLI. We'll create a few subcommands and register them with the primary command.
+
+For this, we're going to add in a new library, called `ora`, to give us a spinner for visual effect. Simply add it in as a dependency:
+
+```bash
+npm i ora
+```
+
+### Test Command
+
+Our first command that we're creating mocks running a series of tests. We'll keep this one simple, choosing to not include any parameters, but we will use a few output methods like `heading()` and `spacer()`.
+
+```js title='bin/test.js'
+import { Command } from '@panda/command'
+import ora from 'ora'
+
+export const TestCommand = new Command({
+  name: 'test',
+  description: 'Run tests',
+
+  async action (data, details) {
+    this.heading('Running tests')
+
+    const spinner = ora()
+
+    spinner.start('Running full test suite')
+    for (let i = 0; i < 25; i++) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+      spinner.text = `Running test ${i + 1}`
+    }
+    spinner.succeed('Tests passed')
+
+    this.spacer()
+  }
+})
+```
+
+Add it into `main.js` as a `subcommand`:
+
+```js title='main.js'
+import { Command } from '@panda/command'
+
+import { TestCommand } from './test.js'
+
+export const MainCommand = new Command({
+  name: 'panda-example-cli',
+  description: 'Panda example CLI',
+  version: '1.0.0',
+
+  subcommands: [
+    TestCommand
+  ],
+
+  async action (data, details) {
+    this.out(this.rainbow('Hello, Panda!'))
+  }
+})
+```
+
+Now run the subcommand from your terminal:
+
+```bash
+$ node cli.js test  
+
+Running tests
+
+✔ Tests passed
+```
+
+As you can see, it ran our code and outputted our success message. 
+
+### Build Command
+
+Second in our list is a command that will mock compiling your project code. Again, we've kept it simple, but we did add a new method called `buildAction()` that isn't specific to `@panda/command`, but helps us separate our logic (you'll see why later).
+
+```js title='bin/build.js'
+import { Command } from '@panda/command'
+import ora from 'ora'
+
+export const BuildCommand = new Command({
+  name: 'build',
+  description: 'Build the project',
+
+  async action (data, details) {
+    this.heading('Building a new project')
+
+    await this.buildAction(data, details)
+
+    this.spacer()
+    this.out('Project built successfully', { styles: ['green', 'bold'] })
+    this.spacer()
+  },
+
+  async buildAction (data, details) {
+    const spinner = ora()
+
+    spinner.start('Compiling assets')
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    spinner.succeed('Assets compiled')
+
+    spinner.start('Optimizing images')
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    spinner.succeed('Images optimized')
+
+    spinner.start('Minifying JavaScript')
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    spinner.succeed('JavaScript minified')
+
+    spinner.start('Minifying CSS')
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    spinner.succeed('Project built')
+  }
+})
+```
+
+This one showcases the ability to style your output, in this case by passing 'green' and 'bold' in to the `styles` parameter of options. Once again, you'll have to import and add it to `subcommands` in `main.js` so it registers as a subcommand.
+
+```bash
+$ node cli.js build
+
+Building a new project
+
+✔ Assets compiled
+✔ Images optimized
+✔ JavaScript minified
+✔ Project built
+
+Project built successfully
+```
+
+### Deploy Command
+
+Let's have a little fun with the next subcommand. Create a new file called `bin/deploy.js` and add the following:
+
+```js title='bin/deploy.js'
+import { Command } from '@panda/command'
+import ora from 'ora'
+
+import { BuildCommand } from './build.js'
+
+export const DeployCommand = new Command({
+  name: 'deploy',
+  description: 'Deploy the project',
+
+  arguments: {
+    name: 'environment',
+    description: 'The environment to deploy to',
+    validate: value => ['production', 'staging', 'development'].includes(value)
+  },
+
+  options: [
+    {
+      name: 'test-level',
+      alias: 't',
+      description: 'The test level to run',
+      default: 'full',
+      validate: value => ['full', 'partial', 'none'].includes(value)
+    }
+  ],
+
+  flags: [
+    {
+      name: 'force',
+      alias: 'f',
+      description: 'Force deployment'
+    },
+    {
+      name: 'dry-run',
+      description: 'Perform a dry run'
+    }
+  ],
+
+  prompts: [
+    {
+      type: 'select',
+      name: 'environment',
+      label: 'Environment',
+      options: [
+        { title: 'Production', value: 'production' },
+        { title: 'Staging', value: 'staging' },
+        { title: 'Development', value: 'development' }
+      ],
+      default: 'production'
+    }
+  ],
+
+  async action (data, details) {
+    this.heading(`Deploying to ${data.environment} environment`)
+
+    const spinner = ora()
+
+    // Build the project
+    await BuildCommand.buildAction.call(this, data, details)
+
+    // Run tests if --test-level is set
+    if (data.testLevel === 'full') {
+      spinner.start('Running full test suite')
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      spinner.succeed('Tests passed')
+    } else if (data.testLevel === 'partial') {
+      spinner.start('Running partial test suite')
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      spinner.succeed('Tests passed')
+    }
+
+    if (data.dryRun) {
+      // Perform a dry run
+      spinner.start('Performing dry run')
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      spinner.succeed('Dry run complete')
+    } else {
+      // Deploy the project
+      spinner.start('Deploying')
+      await new Promise(resolve => setTimeout(resolve, 3000))
+      spinner.succeed('Deployment complete')
+    }
+    
+    this.spacer()
+  }
+})
+```
+
+There's a lot going on in this one, so let's walk through it...
+
+We've added `arguments`, `options`, `flags` and `prompts` to our new command. This allows us to provide the end user with different options on how they use our CLI. 
+
+Arguments can be passed in as a single argument (object), as multiple arguments that all get collected and passed as an array of a single data key (object with `multiple: true`), or as positional arguments (array). In this case, we need a single, optional parameter that will capture the environment we want to deploy to, so we've named it `environment` and passed in a validation method to make sure the only values that can be passed are 'production', 'staging' or 'development'. 
+
+Next, we've added a `--test-level` or `-t` option, where the user can pass in values of 'full', 'partial' or 'none' to tell us what level of tests to run. We've added a default value of 'full', so `data.testLevel` will always contain a value. We again added a `validate()` method so we can be sure the user only passes a value we've approved.
+
+We've added 2 flags, `--force` and `--dry-run` to give the user the ability to toggle those two on if they choose. 
+
+Finally, we've added a single prompt called `environment` that gives the user the ability to select the environment they'd like to deploy to. Since we already have an argument with the same name, if the user passes in the argument, they will not be prompted with the question. This can work with `options` and `flags` as well. 
+
+Additionally, you may notice we've imported the `build.js` command. Commands don't have to be run from a terminal, they can also be run from code as long as the proper properties are passed in.
+
+Add this command to `main.js` and we can run it as we have the other commands:
+
+```bash
+$ node cli.js deploy
+? environment: staging
+
+Deploying to staging environment
+
+✔ Assets compiled
+✔ Images optimized
+✔ JavaScript minified
+✔ Project built
+✔ Tests passed
+✔ Deployment complete
+```
+
+We can also play around with different variations of arguments, options and flags to see the varying results:
+
+```bash
+$ node cli.js deploy staging --dry-run --test-level none
+
+Deploying to staging environment
+
+✔ Assets compiled
+✔ Images optimized
+✔ JavaScript minified
+✔ Project built
+✔ Dry run complete
+```
+
+This call is to the staging environment, doesn't run tests and does a dry-run instead of an actual deployment.
+
+## Putting It All Together
+
+Now that we've got our subcommands built, we've got a fully working CLI. 
+
+Your `main.js` should look like this:
+
+```js title='main.js'
+import { Command } from '@panda/command'
+
+import { BuildCommand } from './build.js'
+import { DeployCommand } from './deploy.js'
+import { TestCommand } from './test.js'
+
+export const MainCommand = new Command({
+  name: 'panda-example-cli',
+  description: 'Panda example CLI',
+  version: '1.0.0',
+
+  subcommands: [
+    BuildCommand,
+    DeployCommand,
+    TestCommand
+  ],
+
+  async action (data, details) {
+    this.out(this.rainbow('Hello, Panda!'))
+  }
+})
+```
+
+### Install Globally
+
+Because we added a `bin` to `package.json`, if we install this package globally via NPM, we can skip running it directly and just run the `panda-example-cli` command directly in your terminal from anywhere in your system. To do that, install it globally:
+
+```bash
+npm i -g .
+```
+
+### Help & Version
+
+`@panda/command` comes with some convenience flags built in, `--help` (or `-h`) and `--version` (or `-v`). These can be turned off by setting `autoHelp` or `autoVersion` to false, but since we didn't do that, let's take a look.
+
+```bash
+$ panda-example-cli --help
+
+Panda example CLI
+
+Usage:
+  panda-example-cli [OPTIONS] [COMMAND]
+
+Commands:
+  build                                                             Build the project
+  deploy                                                            Deploy the project
+  test                                                              Run tests
+
+Flags:
+  -h, --help                                                        Show help
+  -v, --version                                                     Show version
+```
+
+As you can see, it automatically builds a help menu for you that includes helpful information like the description, usage, subcommands, arguments, options and flags. Running it for the `deploy` command shows another view:
+
+```bash
+$ panda-example-cli deploy --help
+
+Deploy the project
+
+Usage:
+  deploy [environment] [OPTIONS]
+
+Arguments:
+  environment                                                       The environment to deploy to
+
+Options:
+  -t, --test-level <test-level>                                     The test level to run
+  -f, --force                                                       Force deployment
+  --dry-run                                                         Perform a dry run
+  -h, --help                                                        Show help
+```
+
+Additionally, using the `--version` flag will output the version (if provided). Since we only put the version in the primary command, that is the only place it will show up for us, but it can be added to individual commands if desired.
+
+```bash
+$ panda-example-cli --version    
+1.0.0
+```
+
+## Final Thoughts
+
+Hopefully you've got a better understanding of the `@panda/command` library and how to create amazing CLIs with it. What we've shown you today only scratches the surface of what it's capable of and how it can be configured. 
+
+To learn more about the `Command` class and its properties, check out the [Command Docs](../entities/command/overview).
