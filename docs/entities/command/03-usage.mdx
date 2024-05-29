@@ -183,3 +183,131 @@ Method called to process data. Both `data` and `details` objects are passed.
 
 See [Properties.action](./properties/action) for more information
 
+## Methods
+
+### Process Methods
+
+`@panda/command` provides a list of process methods that are used during the lifecycle of a command:
+
+* `initialize()` prepares the command for execution
+* `run()` runs the command
+* `prepare()` converts passed properties into their usable instances
+* `parse()` parses the command line arguments
+* `assemble()` assembles the command line arguments
+* `runPrompts()` runs the prompts
+* `transform()` transforms the data before reaching the action
+* `action()` processes the data
+
+The only method that should be called directly is `run()`. The rest are called internally, but can be overwritten if needed.
+
+#### Process Flow
+
+- `initialize()`
+  - `prepare()`
+- `run()`
+  - `parse()`
+    - `assemble()`
+  - `runPrompts()`
+  - `transform()`
+  - `action()`
+
+### Output Methods
+
+`@panda/command `provides a list of output methods to use instead of/in addition to using console:
+
+* `style (styles)` applies styles via an array (e.g. `['green', 'bold']`) or string (e.g. `green.bold`)
+* `log (msg, opts)` outputs the `msg` string and conditionally applies styling via `opts`
+* `out (msg, opts)` similar to `log()`
+* `error (err, msg, exit)` outputs an error, a custom message, and conditionally stops the script
+* `spacer ()` outputs an empty spacer row
+* `rainbow (text)` returns the passed in text string as a rainbow
+* `heading (msg, opts)` outputs a heading, which is bolded and contains spacers
+
+```js
+const MyCommand = new Command({
+  name: 'my-command',
+  action: async function (data, details) {
+    // will output a heading in bold with spacers
+    this.heading('Example command output')
+    // a simple output
+    this.out('normal text')
+    // text output bolded and in blue
+    this.out('colorful text', { styles: ['blue', 'bold'] })
+    // a spacer line in the console
+    this.spacer()
+    // outputs a line of text in rainbow
+    this.out(this.rainbow('Rainbow sentence that goes on and on'))
+    this.spacer()
+    try {
+      throw new Error('Example error')
+    } catch (e) {
+      // outputs an error and exits the console
+      this.error(e, 'Example error message')
+    }
+  }
+})
+```
+
+## Built-in Functionality
+
+### Help Menu
+
+By default, the `--help` option will output content showing the user how to use the command, its arguments and options, and give a list of subcommands.
+
+```js
+new Command({
+  name: 'my-command',
+  argument: {
+    name: 'name'
+  },
+  options: [{
+    name: 'tags',
+    alias: 't',
+    type: 'string',
+    multiple: true
+  }],
+  flags: [
+    { name: 'verbose', alias: 'v' },
+    { name: 'force', alias: 'f' }
+  ],
+  action: async function (data, details) {
+    this.heading('Example Command')
+    this.out({ data, details })
+  }
+})
+```
+
+```bash
+$ node my-command.js --help
+
+Usage: my-command [name] [OPTIONS]
+
+Arguments:
+  name                                   The name of the thing
+
+Options:
+  --tags, -t <tags...>                   The tags for the thing
+  --verbose, -v                          Run in verbose mode
+  --force, -f                            Force the action
+  --help, -h                             Show help
+```
+
+### Version Output
+
+By default, the `--version` option will output the version of the command.
+
+```js
+new Command({
+  name: 'my-command',
+  version: '1.0.0',
+  action: async function (data, details) {
+    this.heading('Example Command')
+    this.out({ data, details })
+  }
+})
+```
+
+```bash
+$ node my-command.js --version
+1.0.0
+```

@@ -14,3 +14,8 @@ Modern software development is about choosing the right tools, processes and pat
 
 At its core, Panda is a development system that creates abstract patterned libraries (called "entities") that can be used independently or bundled together to create larger systems or projects. It uses best-in-class libraries as a foundation for each entity, but the abstraction of functionality allows for the creation of parallel entities built using similar libraries or frameworks.
 
+:::warning[Panda is undergoing a rebuild]
+
+We are beginning with our core entities, such as `@panda/command` and `@panda/scaffold`, so the core docs will not reflect the active verion of `panda`. Once we release an updated version of `panda`, we will be revamping those docs as well.
+
+:::
