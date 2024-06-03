@@ -1,39 +1,9 @@
 ---
 title: transform
 description: plugins to transform command arguments
-sidebar_position: 14
 tags: [Command, Command Properties]
 ---
 
-# `transform`
+import Transform from '../../_templates/command/properties/transform.mdx'
 
-The `transform` property is a function used to transform command data from the user (via `arguments`, `options`, `flags` and `prompts`) before it is passed to the command action. This is useful for commands that require specific data types or need to perform additional validation on the user input.
-
-```js
-module.exports = {
-  transform: (data) => {
-    // transform data here
-    return data;
-  }
-};
-```
-
-## Parameters
-
-The `transform` function receives a single parameter, `data`, which is an object containing the command data. The function should return an object with the same properties as the input `data` object, although values can be added, removed or modified as needed.
-
-### Example
-
-```js
-new Command({
-  name: 'create',
-  arguments: {
-    name: 'name',
-    required: true
-  },
-  transform: (data) => {
-    data.name = data.name.toUpperCase()
-    return data;
-  }
-});
-```
+<Transform />

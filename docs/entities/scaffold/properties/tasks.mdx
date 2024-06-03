@@ -1,0 +1,325 @@
+---
+title: tasks
+description: List of tasks to perform
+tags: [Scaffold, Scaffold Properties, Tasks]
+---
+
+# `tasks`
+
+> **Type:** `array`\
+> **Required:** No
+
+A list of tasks to perform when the scaffold is run. Each task represents an action and is run in the order they are defined in the list.
+
+The `type` property defines which action to run. There are two types of actions: built-in actions and custom actions.
+
+## Usage
+
+```js
+{
+  tasks: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        console.log('Running custom logic')
+      }
+    }
+  ]
+}
+```
+
+## Properties
+
+Each action has their own set of properties, but there are a few properties that are common to all actions.
+
+For a list of actions and their properties, see [Scaffold Actions](/docs/entities/scaffold/actions).
+
+| Name     | Description | Default | Required |
+| -------- | ----------- | ------- | -------- |
+| `type`   | The type of action to run |         | Yes      |
+| `title`  | The title of the task |         | No       |
+| `description` | A description of the task |         | No       |
+| `successMessage` | A message to display when the task is successful |         | No       |
+| `failureMessage` | A message to display when the task fails |         | No       |
+| `silent` | Whether to suppress output from the task | `false` | No       |
+| `source` | The relative source path |         | No       |
+| `target` | The relative target path |         | No       |
+| `sourceBase` | The base source path (overrides scaffold's `scaffoldDir`) |         | No       |
+| `targetBase` | The base target path (overrides scaffold's `cwd`) |         | No       |
+
+### `type`
+
+Type: `string`
+
+The type of action to run. This can be a built-in action or a custom action.
+
+### `title`
+
+Type: `string`
+
+The title of the task. This is used in the output to describe the task.
+
+### `description`
+
+Type: `string`
+
+A description of the task. This is currently not used, but may be used in the future.
+
+### `successMessage`
+
+Type: `string`
+
+A message to display when the task is successful. This is used in the output to indicate that the task was successful.
+
+### `failureMessage`
+
+Type: `string`
+
+A message to display when the task fails. This is used in the output to indicate that the task failed.
+
+### `silent`
+
+Type: `boolean`
+Default: `false`
+
+Whether to suppress output from the task. If `true`, the task will not output anything to the console unless it fails.
+
+### `source`
+
+Type: `string`
+
+The relative source path. This is used in actions that reference a source file or directory.
+
+### `target`
+
+Type: `string`
+
+The relative target path. This is used in actions that reference a target file or directory.
+
+### `sourceBase`
+
+Type: `string`
+
+The base source path. This overrides the scaffold's `scaffoldDir` property and is used in actions that reference a source file or directory.
+
+### `targetBase`
+
+Type: `string`
+
+The base target path. This overrides the scaffold's `cwd` property and is used in actions that reference a target file or directory.
+
+## Task Groups
+
+Tasks can also be run in groups. This is useful when you want to group related tasks together.
+
+```js
+{
+  tasks: [
+    {
+      title: 'Group 1',
+      tasks: [
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 1')
+          }
+        },
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 2')
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Task Group Properties
+
+| Name     | Description | Default | Required |
+| -------- | ----------- | ------- | -------- |
+| `title`  | The title of the task group |         | No       |
+| `tasks`  | The list of tasks to run |         | Yes      |
+| `concurrent` | Whether to run the task concurrently | `false` | No       |
+| `silent` | Whether to suppress output from all subtasks | `false` | No       |
+| `collapseSubtasks` | Whether to collapse subtasks in the output after completion | `false` | No       |
+
+##### `title`
+
+Type: `string`
+
+The title of the task group. This is used in the output to describe the task group.
+
+##### `tasks`
+
+Type: `array`
+
+The list of tasks to run. Each task is an object with its own set of properties.
+
+##### `concurrent`
+
+Type: `boolean`
+Default: `false`
+
+Whether to run the task concurrently. If `true`, the tasks will run concurrently.
+
+##### `silent`
+
+Type: `boolean`
+Default: `false`
+
+Whether to suppress output from all subtasks. If `true`, the subtasks will not output anything to the console unless they fail.
+
+##### `collapseSubtasks`
+
+Type: `boolean`
+Default: `false`
+
+Whether to collapse subtasks in the output after completion. If `true`, the subtasks will be hidden in the output after they complete.
+
+## Built-in Actions
+
+Built-in actions are actions that are provided by Panda. They are defined in the `@pandajs/scaffold` package and are available to all scaffolds.
+
+For a list of built-in actions, see [Scaffold Actions](/docs/entities/scaffold/actions).
+
+## Custom Actions
+
+Custom actions are actions that are defined by the scaffold author. They are defined in the `actionTypes` property of the scaffold.
+
+## Examples
+
+### Basic Task
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        console.log('Running custom logic')
+      }
+    }
+  ]
+})
+```
+
+### Task with Source and Target
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'path/to/source',
+      target: 'path/to/target'
+    }
+  ]
+})
+```
+
+### Task Group
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      title: 'Group 1',
+      tasks: [
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 1')
+          }
+        },
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 2')
+          }
+        }
+      ]
+    }
+  ]
+})
+```
+
+### Concurrency
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  concurrent: true,
+  tasks: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        // Custom logic
+      }
+    },
+    {
+      type: 'custom',
+      handler: async (data) => {
+        // Custom logic
+      }
+    }
+  ]
+})
+
+```
+
+### Task Group Concurrency
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      title: 'Group 1',
+      concurrent: true,
+      tasks: [
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 1')
+          }
+        },
+        {
+          type: 'custom',
+          handler: async (data) => {
+            console.log('Running task 2')
+          }
+        }
+      ]
+    }
+  ]
+})
+```
+
+### Silent Task
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        console.log('Running custom logic')
+      },
+      silent: true
+    }
+  ]
+})
+```

@@ -1,0 +1,190 @@
+# `flags`
+
+Flags are boolean parameters that are passed to a command.
+
+## Usage
+
+Flags are passed as an array of objects, with each object containing the properties of the flag.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      description: 'Show additional information',
+      default: false
+    }
+  ]
+}
+```
+
+### Default Values
+
+Default values can be set for flags by providing a value for the `default` property.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      description: 'Show additional information',
+      default: false
+    }
+  ]
+}
+```
+
+This is used to always have a value present for the flag, even if it is not passed to the command.
+
+## Properties
+
+| Property                      | Required | Type(s)         | Default  | Description |
+| ----------------------------- | :------: | --------------- | -------- | ----------- |
+| [`name`](#name)               | Y        | string          |          | Flag name |
+| [`alias`](#alias)             | N        | string          |          | Short alias |
+| [`description`](#description) | N        | string          |          | Description |
+| [`required`](#required)       | N        | boolean         | `false`  | Required flag |
+| [`default`](#default)         | N        | any             |          | Default value |
+| [`tags`](#tags)               | N        | string/array    |          | Tag(s) to apply in `details` |
+| [`global`](#global)           | N        | boolean         | `false`  | Global flag |
+
+
+```
+name: string
+alias?: string
+description?: string
+required?: boolean
+default?: any
+tags?: string | string[]
+global?: boolean
+```
+
+### `name`
+
+The name of the flag. This is the key that the value will be stored under in the command data object.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose'
+    }
+  ]
+}
+```
+
+### `alias`
+
+A short alias for the flag. This can be used in place of the full flag name.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      alias: 'v'
+    }
+  ]
+}
+```
+
+In this scenario, `--verbose` and `-v` would be interchangeable.
+
+### `description`
+
+Description of the flag. Shows up in the `--help` menu.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      description: 'Show additional information'
+    }
+  ]
+}
+```
+
+### `required`
+
+Whether the flag is required. If set to `true`, the flag must be passed to the command.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      required: true
+    }
+  ]
+}
+```
+
+### `default`
+
+Default value for the flag. If set, the flag will be set to this value if not passed to the command.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      default: false
+    }
+  ]
+}
+```
+
+### `tags`
+
+Tag(s) to apply in `details`. Can be a string or an array of strings.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      tags: 'debug'
+    }
+  ]
+}
+```
+
+### `global`
+
+Whether the flag is global. If set to `true`, the flag can be passed to any command.
+
+> Note: Global option functionality is not yet implemented.
+
+```js
+{
+  flags: [
+    {
+      name: 'verbose',
+      global: true
+    }
+  ]
+}
+```
+
+## Example
+
+```js
+new Command({
+  flags: [
+    {
+      name: 'verbose',
+      alias: 'v',
+      description: 'Show additional information',
+      required: false,
+      default: false,
+      tags: ['debug'],
+      global: false
+    }
+  ]
+})
+```
+
+```bash
+$ my-command --verbose
+```

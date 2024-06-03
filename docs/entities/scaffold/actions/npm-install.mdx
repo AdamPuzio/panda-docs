@@ -1,0 +1,156 @@
+---
+title: npm-install
+description: Install dependencies using npm
+sidebar_label: npm:install
+tags: [Action, Scaffold]
+---
+
+# `npm:install`
+
+The `npm:install` action installs dependencies using npm.
+
+## Usage
+
+```js
+{
+  type: 'npm:install',
+  packages: ['express', 'pug'],
+  params: [],
+  saveDev: true,
+  packageManager: 'npm'
+}
+```
+
+## Options
+
+### `target`
+
+Type: `string`
+Default: `process.cwd()`
+
+The directory where the packages will be installed.
+
+### `packages`
+
+Type: `Array<string>`
+Default: `[]`
+
+List of packages to install using npm. If no packages are provided, the action will install all dependencies from the `package.json` file.
+
+### `saveDev`
+
+Type: `boolean`
+Default: `false`
+
+Flag to save the packages as dev dependencies.
+
+### `params`
+
+Type: `Array<string>`
+Default: `[]`
+
+List of additional parameters to pass to the npm install command.
+
+### `packageManager`
+
+Type: `string`
+Default: `'npm'`
+
+The package manager to use. Can be either `'npm'` or `'yarn'`.
+
+## Examples
+
+### Install Specific Packages
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install',
+      packages: ['express', 'pug']
+    }
+  ]
+})
+```
+
+### Install All Dependencies
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install'
+    }
+  ]
+})
+```
+
+### Install with Additional Parameters
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install',
+      params: ['--save-dev']
+    }
+  ]
+})
+```
+
+### Install with Yarn
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install',
+      packageManager: 'yarn'
+    }
+  ]
+})
+```
+
+### Install in a Specific Directory
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install',
+      target: 'path/to/directory'
+    }
+  ]
+})
+```
+
+### Install as Dev Dependencies
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'install-deps',
+  actions: [
+    {
+      type: 'npm:install',
+      saveDev: true
+    }
+  ]
+})
+```

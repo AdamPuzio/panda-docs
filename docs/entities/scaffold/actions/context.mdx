@@ -1,0 +1,68 @@
+---
+title: context
+description: Ensure a particular context is true
+sidebar_label: context
+tags: [Action, Scaffold]
+---
+
+# `context`
+
+The `context` action ensures that a particular context is true. If the context is not true, the action will fail.
+
+## Usage
+
+```js
+{
+  type: 'context',
+  context: 'inProject'
+}
+```
+
+## Properties
+
+| Name     | Description                    | Default | Required |
+| -------- | ------------------------------ | ------- | -------- |
+| `context` | The context to check |         | Yes      |
+| `target` | The path to the directory |         | No      |
+
+### `context`
+
+Type: `string` or `string[]`
+
+The context to check. If the context is not true, the action will fail.
+
+Here are the available contexts:
+
+- `inProject`: Checks if the current working directory is a project directory (contains a `package.json` file)
+- `notInProject`: Checks if the current working directory is not a project directory (does not contain a `package.json` file)
+- `inPandaProject`: Checks if the current working directory is a Panda project directory
+- `notInPandaProject`: Checks if the current working directory is not a Panda project directory
+
+### `target`
+
+Type: `string`
+
+The path to the directory that the context should be checked in. 
+
+If not provided, the context will be checked in the current working directory. If `targetBase` is provided, the target will be relative to that base.
+
+## Examples
+
+### Basic `inProject` Check
+
+```js
+{
+  type: 'context',
+  context: 'inProject'
+}
+```
+
+### Check in a Specific Directory
+
+```js
+{
+  type: 'context',
+  context: 'inProject',
+  target: 'path/to/directory'
+}
+```

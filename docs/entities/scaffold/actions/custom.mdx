@@ -1,0 +1,103 @@
+---
+title: custom
+description: Action with custom logic
+sidebar_label: custom
+tags: [Action, Scaffold]
+---
+
+# `custom`
+
+The `custom` action allows you to run custom logic during the scaffold process.
+
+## Usage
+
+```js
+{
+  type: 'custom',
+  data: {
+    foo: '$$foo',
+    bar: '{{ camelCase bar }}'
+  },
+  handler: async (data) => {
+    // Custom logic
+  }
+}
+```
+
+## Properties
+
+| Name     | Description | Default | Required |
+| -------- | ----------- | ------- | -------- |
+| `data`   | Data to pass to the handler |         | No       |
+| `handler` | The custom logic to run |         | Yes      |
+
+### `data`
+
+Type: `object`
+
+Data to pass to the handler. This data will be available in the handler function.
+
+### `handler`
+
+Type: `function`
+
+The custom logic to run. This function should be an async function that accepts a single argument, `data`. The `data` argument will contain the data passed to the action.
+
+## Examples
+
+### Basic Custom Action
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        console.log('Running custom logic')
+      }
+    }
+  ]
+})
+```
+
+### Custom Action with Data
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+
+  options: [
+    
+    {
+      name: 'bar',
+      description: 'Bar value',
+      type: 'string'
+    }
+  ],
+  flags: [
+    {
+      name: 'foo',
+      description: 'Foo on',
+      default: false
+    }
+  ],
+  actions: [
+    {
+      type: 'custom',
+      data: {
+        foo: '$$foo',
+        bar: '{{ camelCase bar }}'
+      },
+      handler: async (data) => {
+        console.log(data) // { foo: false, bar: 'barValue' }
+      }
+    }
+  ]
+})
+```
+`;

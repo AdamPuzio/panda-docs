@@ -1,0 +1,115 @@
+# `subcommands`
+
+Commands have the ability to contain subcommands. This allows you to bundle commands together into a CLI package, while still creating each as its own command. 
+
+> Note: Currently, `arguments` and `subcommands` are not compatible. If you plan to use `subcommands`, create your arguments as `options` instead.
+
+## Usage
+
+### Format
+
+The `subcommands` property can be either an array or an object with the key being the subcommand's command. If provided as an array, the subcommand's command will be inferred from the instance itself.
+
+```js
+{
+  subcommands: [
+    new Command({
+      name: 'subcommand-instance'
+    }),
+    Command
+  ]
+}
+```
+
+```js
+{
+  subcommands: {
+    'subcommand-object': {
+      name: 'subcommand-object'
+    },
+    'subcommand-class': Command
+  }
+}
+```
+
+### Accepted Types
+
+Subcommands can be added in one of 3 ways:
+
+- Instance - an instantiated instance of `Command`, `Scaffold` or other class
+- Class - an uninstantiated instance of `Command`, `Scaffold` or other class
+- Object - an object to be instantiated as a `Command`
+
+```js
+const subcommandInstance = new Command({
+  name: 'subcommand-instance'
+})
+
+class subcommandClass extends Command {
+  name = 'subcommand-class'
+}
+
+const subcommandObject = {
+  name: 'subcommand-object'
+}
+```
+
+## Examples
+
+### Various Subcommand Types
+
+```js
+import { Command } from '@panda/command'
+
+const subcommandInstance = new Command({
+  name: 'subcommand-instance'
+})
+
+class subcommandClass extends Command {
+  name = 'subcommand-class'
+}
+
+const subcommandObject = {
+  name: 'subcommand-object'
+}
+new Command({
+  name: 'command',
+  subcommands: [
+    subcommandInstance,
+    subcommandClass,
+    subcommandObject
+  ]
+})
+```
+
+### Importing Subcommands
+
+```js
+import { Command } from '@panda/command'
+
+import { subcommandOne } from './subcommand-one'
+
+new Command({
+  name: 'command',
+  subcommands: [
+    subcommandOne
+  ]
+})
+```
+
+### Renaming Subcommands
+
+If you want to use a different command name than the `command` property provided in a subcommand, you can use an object with the key as the command name. This can be useful when using subcommands in multiple places.
+
+```js
+import { Command } from '@panda/command'
+
+import { subcommandOne } from './subcommand-one'
+
+new Command({
+  name: 'command',
+  subcommands: {
+    'subcommand-one': subcommandOne
+  }
+})
+```

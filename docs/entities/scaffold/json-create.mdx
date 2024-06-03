@@ -1,0 +1,97 @@
+---
+title: json-create
+description: Create a JSON file
+sidebar_label: json:create
+tags: [Action, Scaffold]
+---
+
+# `json:create`
+
+The `json:create` action creates a JSON file with the specified content.
+
+## Usage
+
+```js
+{
+  type: 'json:create',
+  target: 'path/to/file.json',
+  data: {
+    foo: 'bar'
+  },
+  options: {
+    force: true,
+    spaces: 2
+  }
+}
+```
+
+## Properties
+
+| Name     | Description                    | Default | Required |
+| -------- | ------------------------------ | ------- | -------- |
+| `target` | Relative path to the JSON file |         | Yes      |
+| `data`   | JSON data to write to the file | `{}`    | No       |
+| `options` | Options for writing the JSON file | `{}`    | No       |
+
+### `target`
+
+The relative path to the JSON file that needs to be created.
+
+### `data`
+
+Type: `object`
+
+JSON data to write to the file. This data will be stringified and written to the file.
+
+### `options`
+
+Type: `object`
+
+Options for writing the JSON file.
+
+- `force`: Overwrite the file if it already exists
+- `spaces`: Number of spaces to use for indentation when stringifying the JSON data
+
+## Examples
+
+### Create a JSON file
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'json:create',
+      target: 'path/to/file.json',
+      data: {
+        foo: 'bar'
+      }
+    }
+  ]
+})
+```
+
+### Create a JSON file with Options
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'json:create',
+      target: 'path/to/file.json',
+      data: {
+        foo: 'bar'
+      },
+      options: {
+        force: true,
+        spaces: 2
+      }
+    }
+  ]
+})
+```

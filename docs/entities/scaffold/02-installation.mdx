@@ -1,0 +1,83 @@
+---
+title: Installation & Setup
+description: How to install and setup the Scaffold class
+sidebar_position: 2
+tags: [Scaffold, Scaffold Installation]
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Installation & Setup
+
+## Installation
+
+### Install Using `@panda/scaffold`
+
+If you _just_ want to use `Scaffold`, you can install it directly from `@panda/scaffold`:
+
+```bash npm2yarn
+npm install @panda/scaffold
+```
+
+### Install Using `panda`
+
+The `panda` library contains `Scaffold`, along with a lot of other entities and functionality.
+
+```bash npm2yarn
+npm install panda
+```
+
+## Setup
+
+### Include
+
+```js
+// ESM
+import { Scaffold } from '@panda/scaffold'
+// CommonJS
+const { Scaffold } = require('@panda/scaffold')
+```
+
+### Create
+
+Scaffolds can be creating either by extending the `Scaffold` class or creating a new instance of it.
+
+#### Instantiate Scaffold
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+const scaffold = new Scaffold({
+  name: 'foo:create',
+  action: async (data, details) => {}
+})
+```
+
+#### Extend Scaffold
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+export const FooCreateScaffold extends Scaffold {
+  name = 'foo:create'
+
+  async action (data, details) {}
+}
+```
+
+### Run
+
+```bash
+./my-script.js
+```
+
+1. Call the script directly (example: `./my-script.js`)
+2. Call the script via `node` (example: `node my-script.js`)
+3. Add the script to your `package.json` into `scripts` and run `npm run <script>`
+4. Add the script to your `package.json` into `bin` and run `npm link` (or install globally) to run as an independent command
+
+When running a script directly (without using NPM or Node), be sure to include the following in your script:
+
+```
+#!/usr/bin/env node
+```

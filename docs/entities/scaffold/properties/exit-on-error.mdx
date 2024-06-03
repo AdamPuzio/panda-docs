@@ -1,0 +1,32 @@
+---
+title: exitOnError
+description: Whether to exit on a task error
+tags: [Scaffold, Scaffold Properties]
+---
+
+# `exitOnError`
+
+> **Type:** `boolean`\
+> **Default:** `true`
+
+Whether to exit the process if a task fails. If `true`, the process will exit with an error code if a task fails.
+
+## Usage
+
+```js
+{
+  title: 'foo',
+  exitOnError: true,
+  tasks: [
+    {
+      title: 'foo',
+      actions: [
+        {
+          type: 'path:ensure',
+          target: 'path/to/directory'
+        }
+      ]
+    }
+  ]
+}
+```

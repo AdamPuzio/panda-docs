@@ -1,0 +1,72 @@
+---
+title: npm-uninstall
+description: Uninstall dependencies using npm
+sidebar_label: npm:uninstall
+tags: [Action, Scaffold]
+---
+
+# `npm:uninstall`
+
+The `npm:uninstall` action installs dependencies using npm.
+
+## Usage
+
+```js
+{
+  type: 'npm:uninstall',
+  packages: ['express', 'pug'],
+  params: [],
+  packageManager: 'npm'
+}
+```
+
+## Options
+
+### `target`
+
+Type: `string`
+Default: `process.cwd()`
+
+The directory where the packages will be uninstalled from.
+
+### `packages`
+
+Type: `Array<string>`
+Default: `[]`
+
+List of packages to uninstall.
+
+### `params`
+
+Type: `Array<string>`
+Default: `[]`
+
+List of additional parameters to pass to the npm uninstall command.
+
+### `packageManager`
+
+Type: `string`
+Default: `'npm'`
+
+The package manager to use. Can be either `'npm'` or `'yarn'`.
+
+## Examples
+
+### Uninstall `express` and `pug` using npm
+
+```js
+{
+  type: 'npm:uninstall',
+  packages: ['express', 'pug']
+}
+```
+
+### Uninstall `express` and `pug` using yarn
+
+```js
+{
+  type: 'npm:uninstall',
+  packages: ['express', 'pug'],
+  packageManager: 'yarn'
+}
+```

@@ -1,0 +1,37 @@
+---
+title: Usage
+description: How to use Actions
+sidebar_position: 3
+tags: [Actions, Usage]
+---
+
+# Usage
+
+Actions can be run either independently or as part of another entity, such as a Scaffold.
+
+### Using Predefined Actions
+
+```js
+const cmd = new CommandAction({
+  command: 'echo',
+  args: ['hello']
+})
+
+cmd.run()
+```
+
+### Using Actions in a Scaffold
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  actions: [
+    {
+      type: 'command',
+      command: 'echo',
+      args: ['hello']
+    }
+  ]
+})
+```

@@ -1,0 +1,139 @@
+---
+title: Scaffold Actions
+description: List of actions available to a Scaffold
+url: /docs/entities/scaffold/actions
+tags: [Scaffold, Scaffold Actions, Actions] 
+---
+# Actions
+
+Actions are simple input/output functionality performed as `tasks` in a scaffold. They are the building blocks of a scaffold and are used to perform a variety of operations, such as copying files, installing npm packages, and more.
+
+More information on how to use actions as part of a scaffold can be found in the [Scaffold Tasks](/docs/entities/scaffold/properties/tasks) documentation.
+
+## Philosophy
+
+Actions are fancy functions. You feed it data and it performs an operation. The difference is that actions are wrapped up with convenience methods and have an order of events that are performed.
+
+* Can be synchronous or asynchronous
+* Base data can be provided upon instantiation, or passed in as an argument on execution
+
+## Default Actions
+
+The following actions are available by default when using a scaffold:
+
+| Name | Description |
+| ---- | ----------- |
+| [`context`](./actions/context) | Determine if the context of the scaffold is valid |
+| [`custom`](./actions/custom) | Run custom logic |
+| [`file:copy`](./actions/file-copy) | Copy a file |
+| [`file:modify`](./actions/file-modify) | Modify a file |
+| [`npm:install`](./actions/npm-install) | Install npm packages |
+| [`npm:uninstall`](./actions/npm-uninstall) | Uninstall npm packages |
+| [`path:ensure`](./actions/path-ensure) | Ensure a path exists |
+
+## Custom Actions
+
+Custom actions can be defined by the scaffold author. They are defined in the `actionTypes` property of the scaffold.
+
+For more information on custom actions, see the [Action Types](/docs/entities/scaffold/properties/actiontypes) documentation.
+
+## Usage
+
+Actions are defined in the [`tasks`](/docs/entities/scaffold/properties/tasks) property of the scaffold. Each action is an object with a `type` property that defines which action to run.
+
+```js
+{
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/index.js',
+      target: 'dist/index.js'
+    }
+  ]
+}
+```
+
+### Templating
+
+Actions can be templated using the `{{ }}` syntax. This allows for dynamic values to be passed into the action.
+
+```js
+{
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/{{ name }}.js',
+      target: 'dist/{{ name }}.js'
+    }
+  ]
+}
+```
+
+Additionally, there is `$$` syntax that allows for the swapping of values. This is useful for when you want to replace a value with another value that is part of the data object and retain its type (e.g. boolean, number, array, object, etc.).
+
+```js
+{
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/index.js',
+      target: '$$name'
+    }
+  ]
+}
+```
+
+Included in the `$$` syntax is the ability to set a default value if the value is not found in the data object.
+
+```js
+{
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/index.js',
+      target: '$$name|default'
+    }
+  ]
+}
+```
+
+To apply a type to the default value, preface it with a type setter.
+
+```js
+{
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/index.js',
+      target: '$$name',
+      options: {
+        overwrite: '$$force|bool:false'
+      }
+    }
+  ]
+}
+```
+
+The available type setters are:
+
+* `bool`
+* `int`
+* `float`
+
+## Examples
+
+### Copy a single file
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  tasks: [
+    {
+      type: 'file:copy',
+      source: 'src/index.js',
+      target: 'dist/index.js'
+    }
+  ]
+})
+```

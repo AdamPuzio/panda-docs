@@ -1,0 +1,114 @@
+---
+title: file-copy
+description: Copy file(s) from one location to another
+sidebar_label: file:copy
+tags: [Action, Scaffold]
+---
+
+# `file:copy`
+
+The `file:copy` action copies files from one location to another. Both the `source` and `target` properties can be either a direct reference to a file or directory, or a glob pattern.
+
+## Usage
+
+```js
+{
+  type: 'file:copy',
+  source: 'src/index.js',
+  target: 'dist/index.js'
+}
+```
+
+## Options
+
+### `source`
+
+Type: `string`
+
+The path to the file or directory to copy. Can be a glob pattern.
+
+### `target`
+
+Type: `string`
+
+The path to copy the file or directory to. Can be a glob pattern.
+
+### `options`
+
+Type: `object`
+Default: `{}`
+
+Options to pass to the copy operation. See [fs-extra.copy](https://github.com/jprichardson/node-fs-extra/blob/master/docs/copy.md) for more information.
+
+## Examples
+
+### Copy a single file
+
+```js
+{
+  type: 'file:copy',
+  source: 'src/index.js',
+  target: 'dist/index.js'
+}
+```
+
+### Copy a single file with overwrite
+
+```js
+{
+  type: 'file:copy',
+  source: 'src/index.js',
+  target: 'dist/index.js',
+  options: {
+    overwrite: true
+  }
+}
+```
+
+### Copy a directory
+
+```js
+{
+  type: 'file:copy',
+  source: 'src',
+  target: 'dist'
+}
+```
+
+### Copy a directory with overwrite
+
+```js
+{
+  type: 'file:copy',
+  source: 'src',
+  target: 'dist',
+  options: {
+    overwrite: true
+  }
+}
+```
+
+### Copy a directory with filtering
+
+```js
+{
+  type: 'file:copy',
+  source: 'src',
+  target: 'dist',
+  options: {
+    filter: (src, dest) => {
+      return !src.includes('node_modules')
+    }
+  }
+}
+```
+
+### Copy files with glob pattern
+
+```js
+{
+  type: 'file:copy',
+  source: 'src/**/*.js',
+  target: 'dist'
+}
+```

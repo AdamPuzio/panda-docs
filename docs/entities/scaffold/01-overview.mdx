@@ -1,0 +1,28 @@
+---
+title: Overview
+description: What is a Scaffold?
+sidebar_position: 1
+tags: [Scaffold]
+---
+# Scaffold
+
+Scaffolds are a way to generate code, files, or other resources based on a template. They extend the `Command` class, so they have all the same functionality as a Command, but with added file generation capabilities.
+
+It might be helpful to think of a Scaffold as a series of input and output commands. The input commands are the parameters and prompts that the user provides, and the output commands are the actions that the Scaffold takes to generate the desired resources.
+
+* Inputs
+  * `arguments`
+  * `options`
+  * `flags`
+  * `prompts`
+* Outputs
+  * `actions`
+
+
+## Syntax
+
+`<command> [arguments|options|flags] [subcommand] [subcommand-parameters]`
+
+A Scaffold is called by a specific name, followed by a series of parameters. These parameters can be in the form of arguments, options, or flags. Additionally, a Scaffold can have subcommands.
+
+For more information on the syntax of a Scaffold, see the [Command](/docs/entities/command) documentation.

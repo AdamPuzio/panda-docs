@@ -1,0 +1,106 @@
+---
+title: file-modify
+description: Modify a file
+sidebar_label: file:modify
+tags: [Action, Scaffold]
+---
+
+# `file:modify`
+
+The `file:modify` action modifies a file by applying a set of transformations to its content.
+
+## Usage
+
+```js
+{
+  type: 'file:modify',
+  target: 'path/to/file',
+  transform: (content) => content.toUpperCase()
+}
+```
+
+## Properties
+
+| Name       | Description                    | Default | Required |
+| ---------- | ------------------------------ | ------- | -------- |
+| `target`   | Relative path to the file      |         | Yes      |
+| `transform` | Transformation function to apply to the file content |         | Yes      |
+| `pattern`  | Pattern to match in the file content |         | No       |
+| `replace`  | Replacement string for the matched pattern |         | No       |
+
+### `target`
+
+The relative path to the file that needs to be modified.
+
+### `transform`
+
+Type: `function`
+
+Transformation function to apply to the file content. This function should accept a single argument, `content`, and return the modified content.
+
+### `pattern`
+
+Type: `string` or `RegExp`
+
+Pattern to match in the file content. If provided, the `replace` option must also be provided.
+
+### `replace`
+
+Type: `string`
+
+Replacement string for the matched pattern. If provided, the `pattern` option must also be provided.
+
+## Examples
+
+### Basic File Modification
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'file:modify',
+      target: 'path/to/file',
+      transform: (content) => content.toUpperCase()
+    }
+  ]
+})
+```
+
+### File Modification with Pattern Matching
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'file:modify',
+      target: 'path/to/file',
+      pattern: 'foo',
+      replace: 'bar'
+    }
+  ]
+})
+```
+
+### File Modification with Regular Expression
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'file:modify',
+      target: 'path/to/file',
+      pattern: /foo/g,
+      replace: 'bar'
+    }
+  ]
+})
+```

@@ -1,0 +1,34 @@
+---
+title: taskTimer
+description: Whether to show a timer for each task
+tags: [Scaffold, Scaffold Properties]
+---
+
+# `taskTimer`
+
+> **Type:** `boolean`\
+> **Default:** `false`
+
+Whether to show a timer for each task. If `true`, a timer will be displayed for each task that is run. This can be useful for debugging and performance tuning.
+
+## Usage
+
+```js
+{
+  taskTimer: true,
+  tasks: [
+    {
+      type: 'custom',
+      handler: async (data) => {
+        // Custom logic
+      }
+    },
+    {
+      type: 'custom',
+      handler: async (data) => {
+        // Custom logic
+      }
+    }
+  ]
+}
+```

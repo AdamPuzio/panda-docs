@@ -1,0 +1,45 @@
+---
+title: path-ensure
+description: Ensure a path exists
+sidebar_label: path:ensure
+tags: [Action, Scaffold]
+---
+
+# `path:ensure`
+
+The `path:ensure` action ensures that a path exists. If the path does not exist, it will be created.
+
+## Usage
+
+```js
+{
+  type: 'path:ensure',
+  target: 'path/to/directory'
+}
+```
+
+## Properties
+
+| Name     | Description                    | Default | Required |
+| -------- | ------------------------------ | ------- | -------- |
+| `target` | Relative path to the directory |         | Yes      |
+
+### `target`
+
+The relative path to the directory that needs to be ensured.
+
+## Example
+
+```js
+import { Scaffold } from '@panda/scaffold'
+
+new Scaffold({
+  name: 'foo:create',
+  actions: [
+    {
+      type: 'path:ensure',
+      target: 'path/to/directory'
+    }
+  ]
+})
+```

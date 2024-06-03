@@ -1,7 +1,3 @@
 {
-  "label": "Action",
-  "link": {
-    "type": "generated-index",
-    "description": "Documentation on the Scaffold entity"
-  }
+  "label": "Action"
 }

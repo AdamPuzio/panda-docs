@@ -1,0 +1,161 @@
+---
+title: Scaffold Properties
+description: List of properties available to a Scaffold
+url: /docs/entities/scaffold/properties
+tags: [Scaffold, Scaffold Properties, Properties]
+---
+
+# Properties
+
+| Property                      | Required | Type(s)         | Default  | Description |
+| ----------------------------- | :------: | --------------- | -------- | ----------- |
+| [`action`](#action)           | N        | function        |          | Method to process data |
+| [`actionTypes`](#actiontypes) | N        | object          |          | List of custom action types |
+| [`arguments`](#arguments)     | N        | object/array    |          | Argument handler |
+| [`autoHelp`](#autohelp)       | N        | boolean         | `false`  | Toggle for automated help menu |
+| [`autoVersion`](#autoversion) | N        | boolean         | `false`  | Toggle for automated version output |
+| [`command`](#command)         | N        | string          |          | Subcommand name |
+| [`cwd`](#cwd)                 | N        | string          | `process.cwd()` | Current working directory |
+| [`description`](#description) | N        | string          |          | Scaffold description |
+| [`exitOnError`](#exitonerror) | N        | boolean         | `true`   | Toggle for exiting on error |
+| [`flags`](#flags)             | N        | array           |          | List of flags |
+| [`name`](#name)               | Y        | string          |          | Scaffold name |
+| [`options`](#options)         | N        | array           |          | List of options |
+| [`prompts`](#prompts)         | N        | array           |          | List of prompts |
+| [`promptTypes`](#prompttypes) | N        | object          |          | List of custom prompt types |
+| [`scaffoldDir`](#scaffolddir) | N        | string          |          | Directory where scaffolds are stored |
+| [`silent`](#silent)           | N        | boolean         | `false`  | Toggle for output suppression |
+| [`subcommands`](#subcommands) | N        | array/object    |          | List of subcommands |
+| [`tasks`](#tasks)             | N        | array           |          | List of tasks to perform |
+| [`taskTimer`](#tasktimer)     | N        | boolean         | `false`  | Toggle for task timing |
+| [`title`](#title)             | N        | string          |          | Scaffold title |
+| [`transform`](#transform)     | N        | function        |          | Method to transform data |
+| [`version`](#version)         | N        | string          |          | Scaffold version |
+
+## `action`
+
+Method to process data.
+
+See [Properties.action](./properties/action) for more information
+
+## `actionTypes`
+
+List of custom action types.
+
+An object that defines custom action types available to the scaffold.
+
+See [Properties.actionTypes](./properties/actionTypes) for more information
+
+## `arguments`
+
+Argument handler. An object or array of objects that define the arguments to parse.
+
+See [Properties.arguments](./properties/arguments) for more information
+
+## `autoHelp`
+
+A boolean flag to automatically generate and display the help menu on `--help`.
+
+See [Properties.autoHelp](./properties/autoHelp) for more information
+
+## `autoVersion`
+
+A boolean flag to automatically output the version on `--version`.
+
+See [Properties.autoVersion](./properties/autoVersion) for more information
+
+## `command`
+
+The subcommand name, used when the scaffold is a subcommand of another scaffold. Defaults to value of `name`.
+
+See [Properties.command](./properties/command) for more information
+
+## `cwd`
+
+The current working directory.
+
+See [Properties.cwd](./properties/cwd) for more information
+
+## `description`
+
+A brief description of the scaffold. Used in the help menu.
+
+See [Properties.description](./properties/description) for more information
+
+## `exitOnError`
+
+A boolean flag to exit if any task fails.
+
+See [Properties.exitOnError](./properties/exitOnError) for more information
+
+## `flags`
+
+A list of available flag parameters to parse.
+
+See [Properties.flags](./properties/flags) for more information
+
+## `name`
+
+(required) The name of the scaffold. Doubles as the subcommand if `command` is not set.
+
+See [Properties.name](./properties/name) for more information
+
+## `options`
+
+A list of available key/value parameters to parse.
+
+See [Properties.options](./properties/options) for more information
+
+## `prompts`
+
+An array of objects that define the prompts to ask the user.
+
+See [Properties.prompts](./properties/prompts) for more information
+
+## `promptTypes`
+
+An object that defines custom prompt types available to the scaffold.
+
+See [Properties.promptTypes](./properties/promptTypes) for more information
+
+## `scaffoldDir`
+
+The directory where scaffolds are stored.
+
+See [Properties.scaffoldDir](./properties/scaffoldDir) for more information
+
+## `silent`
+
+A boolean flag to suppress logging output.
+
+See [Properties.silent](./properties/silent) for more information
+
+## `subcommands`
+
+An array or object that define the subcommands available to the scaffold.
+
+See [Properties.subcommands](./properties/subcommands) for more information
+
+## `taskTimer`
+
+A boolean flag to time each task.
+
+See [Properties.taskTimer](./properties/taskTimer) for more information
+
+## `title`
+
+The title of the scaffold.
+
+See [Properties.title](./properties/title) for more information
+
+## `transform`
+
+A method to transform data before reaching the action.
+
+See [Properties.transform](./properties/transform) for more information
+
+## `version`
+
+The version of the scaffold. Used in the help menu.
+
+See [Properties.version](./properties/version) for more information
