@@ -4,6 +4,7 @@ description: List of actions available to a Scaffold
 url: /docs/entities/scaffold/actions
 tags: [Scaffold, Scaffold Actions, Actions] 
 ---
+
 # Actions
 
 Actions are simple input/output functionality performed as `tasks` in a scaffold. They are the building blocks of a scaffold and are used to perform a variety of operations, such as copying files, installing npm packages, and more.
@@ -30,12 +31,6 @@ The following actions are available by default when using a scaffold:
 | [`npm:install`](./actions/npm-install) | Install npm packages |
 | [`npm:uninstall`](./actions/npm-uninstall) | Uninstall npm packages |
 | [`path:ensure`](./actions/path-ensure) | Ensure a path exists |
-
-## Custom Actions
-
-Custom actions can be defined by the scaffold author. They are defined in the `actionTypes` property of the scaffold.
-
-For more information on custom actions, see the [Action Types](/docs/entities/scaffold/properties/actionTypes) documentation.
 
 ## Usage
 
@@ -119,6 +114,68 @@ The available type setters are:
 * `bool`
 * `int`
 * `float`
+
+## Custom Actions
+
+Custom actions can be created by the scaffold author and are added to a scaffold via the `actionTypes` property.
+
+### Custom Action Properties
+
+* `name` - The name of the action (required)
+* `description` - A description of the action
+* `startMessage` - A message to display when the action starts
+* `successMessage` - A message to display when the action is successful
+* `failureMessage` - A message to display when the action fails
+* `run` - The method that performs the action
+
+### Custom Action Usage
+
+Custom actions are defined as classes that extend the `ScaffoldAction` class. The class must have a `run` method that performs the action.
+
+```js
+import { ScaffoldAction } from '@panda/scaffold'
+
+export class MyScaffoldAction extends ScaffoldAction {
+  static name = 'my-action'
+  static description = 'My action'
+
+  startMessage = 'Running my action'
+  successMessage = 'My action ran successfully'
+  failureMessage = 'My action failed'
+
+  async run({
+    handler,
+    data = {}
+  }: {
+    handler: (data: any, ctx: any) => any
+    data?: { [key: string]: any }
+  }, ctx: any) {
+    if (!handler) throw new Error('No handler() method provided')
+    return await handler(data, ctx)
+  }
+}
+```
+
+The custom action can then be used in the scaffold.
+
+```js
+import { Scaffold } from '@panda/scaffold'
+import { MyScaffoldAction } from './my-scaffold-action'
+
+new Scaffold({
+  actionTypes: {
+    'my-action': MyScaffoldAction
+  },
+  actions: [
+    {
+      type: 'my-action',
+      handler: async (data) => {
+        // Custom logic
+      }
+    }
+  ]
+})
+```
 
 ## Examples
 
